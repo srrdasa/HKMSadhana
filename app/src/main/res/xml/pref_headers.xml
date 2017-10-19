@@ -1,0 +1,17 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="com.hkm.hkmsadhna.SettingsActivity$GeneralPreferenceFragment"
+        android:title="Mangala Aarti Time" />
+
+    <header
+        android:fragment="com.hkm.hkmsadhna.SettingsActivity$NotificationPreferenceFragment"
+        android:title="Darshna Aarti Time" />
+
+    <header
+        android:fragment="com.hkm.hkmsadhna.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="Bhagavat Class Time" />
+
+</preference-headers>

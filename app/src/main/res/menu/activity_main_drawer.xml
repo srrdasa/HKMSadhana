@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/calender"
+            android:title="Calender" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/view"
+            android:title="Sadhna Points" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Download data" />
+        <item
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/sync"
+            android:title="Upload data" />
+
+        <item
+            android:id="@+id/nav_summary"
+            android:icon="@drawable/summary"
+            android:title="View Summary" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_slideshow"
+                android:icon="@drawable/setting"
+                android:title="Setting" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,174 @@
+{
+  "project_info": {
+    "project_number": "736800217047",
+    "firebase_url": "https://janmashtami-2ad08.firebaseio.com",
+    "project_id": "janmashtami-2ad08",
+    "storage_bucket": "janmashtami-2ad08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736800217047:android:40001d6f444c14e8",
+        "android_client_info": {
+          "package_name": "com.example.androidbtcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgY-y9xs6h5araeKLd5OQTT6YKwhJ6SrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736800217047:android:31f34d77889719c9",
+        "android_client_info": {
+          "package_name": "com.example.ron.helloworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736800217047-gu2ffqak6m8bj164td1c0e0j62qoj222.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ron.helloworld",
+            "certificate_hash": "33012361fc720876d2328ce08242a45d8fc3124e"
+          }
+        },
+        {
+          "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgY-y9xs6h5araeKLd5OQTT6YKwhJ6SrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736800217047:android:2a3a29a25306f2f9",
+        "android_client_info": {
+          "package_name": "com.abhi.googlelogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736800217047-p5k6nl28qeal0v0j47hucq7hh76fuk33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abhi.googlelogin",
+            "certificate_hash": "33012361fc720876d2328ce08242a45d8fc3124e"
+          }
+        },
+        {
+          "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgY-y9xs6h5araeKLd5OQTT6YKwhJ6SrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736800217047:android:f4e1a099faf78234",
+        "android_client_info": {
+          "package_name": "com.hkm.hkmsadhna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736800217047-bkkf3l4kbls8h2oaih29s63u4jr0p5cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hkm.hkmsadhna",
+            "certificate_hash": "33012361fc720876d2328ce08242a45d8fc3124e"
+          }
+        },
+        {
+          "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgY-y9xs6h5araeKLd5OQTT6YKwhJ6SrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736800217047-ajrun26b5je9bktt1d2pu72qdnh2hk3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

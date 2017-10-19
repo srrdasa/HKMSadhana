@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Darshna Aarti Time">
+
+    <com.hkm.hkmsadhna.TimePreference
+        android:key="Da_From"
+        android:title="From"/>
+
+    <com.hkm.hkmsadhna.TimePreference
+        android:key="Da_To"
+        android:title="To"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
+
+
+

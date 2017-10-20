@@ -208,8 +208,6 @@ public class SadhnaDataSource {
             values.put(MarksHelper.COLUMN_JP, -1);
             values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
             mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values1);
-
-
         }
     }
 
@@ -259,7 +257,7 @@ public class SadhnaDataSource {
         else return true;
     }
 
-    public Cursor readData() {
+    public Cursor readData(){
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+";",null);
         return cursor;
     }
@@ -271,7 +269,7 @@ public class SadhnaDataSource {
     }
 
     public Cursor readDataFromReport(int id) {
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " WHERE " + MarksHelper.COLUMN_DATE + " = "+ id +";",null);
+    Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ 11 +";",null);
         return cursor;
     }
 

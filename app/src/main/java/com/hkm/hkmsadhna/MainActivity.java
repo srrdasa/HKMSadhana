@@ -801,7 +801,7 @@ String s = String.valueOf(year);
             public void run() {
                 c.setVisibility(View.GONE);
             }
-        }, 400);
+        }, 600);
     }
 
     void waitForOneSec(final ImageView i){
@@ -820,12 +820,6 @@ String s = String.valueOf(year);
         Cursor cursor = mDataSource.readDataFromReport();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int a = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_ID);
-            int b = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_MA);
-            int c = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_DA);
-            int d = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_JP);
-            int e = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_SB);
-            int f = cursor.getColumnIndex(MarksHelper.REPORT_COLUMN_Totle);
 
             int i = cursor.getInt(0);
             int j = cursor.getInt(1);
@@ -833,7 +827,6 @@ String s = String.valueOf(year);
             int l = cursor.getInt(3);
             int m = cursor.getInt(4);
             int n = cursor.getInt(5);
-
 
             Log.v("MarksFROMRDATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
@@ -907,7 +900,7 @@ String s = String.valueOf(year);
         Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.readData();
         cursor.moveToFirst();
-        while (ii <= date) {
+        while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
             int j = cursor.getInt(1);
             int k = cursor.getInt(2);

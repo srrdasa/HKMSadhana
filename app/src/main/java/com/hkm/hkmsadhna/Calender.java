@@ -34,7 +34,7 @@ public class Calender extends AppCompatActivity {
     // hare krishna
     TextView[] dateCal = new TextView[43];
     RelativeLayout[] lotRel = new RelativeLayout[43];
-    int[] fromSQL = new int[32];
+    int[] fromSQL = new int[100];
     ImageView[] imgView = new ImageView[43];
     ImageView fab,fabAll,fabExcuse,img,fabCancle,fabSick,fabOS,fabOthor;
     LinearLayout lastLayout;

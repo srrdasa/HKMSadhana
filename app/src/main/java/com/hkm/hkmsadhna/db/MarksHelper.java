@@ -14,7 +14,6 @@ public class MarksHelper extends SQLiteOpenHelper {
     public static final String TABLE_SADHNA = "SADHNA";
     public static final String TABLE_REPORT = "Repoart";
 
-
     //for sadhna
     public static final String COLUMN_DATE = "_DATE";
     public static final String COLUMN_MA = "MA";
@@ -22,7 +21,6 @@ public class MarksHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BG = "BG";
     public static final String COLUMN_JP = "JP";
     public static final String COLUMN_ISCOMPLETED = "ISC";
-
 
     //for reportF
     public static final String REPORT_COLUMN_ID = "ID";
@@ -74,5 +72,6 @@ public class MarksHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
     }
 }

@@ -28,7 +28,7 @@ public class SadhnaDataSource {
     public MarksHelper mMarksHelper;
     private Context mContext;
 
-    public SadhnaDataSource(Context context,String DB_NAME) {
+    public SadhnaDataSource(Context context,String DB_NAME){
         mContext = context;
         mMarksHelper = new MarksHelper(mContext,DB_NAME);
     }
@@ -141,6 +141,32 @@ public class SadhnaDataSource {
                 mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
             }
 
+            ContentValues values = new ContentValues();
+            values.put(MarksHelper.COLUMN_MA, -1);
+            values.put(MarksHelper.COLUMN_DATE, 41);
+            values.put(MarksHelper.COLUMN_DA, -1);
+            values.put(MarksHelper.COLUMN_BG, -1);
+            values.put(MarksHelper.COLUMN_JP, -1);
+            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
+            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
+
+            ContentValues values2 = new ContentValues();
+            values.put(MarksHelper.COLUMN_MA, -1);
+            values.put(MarksHelper.COLUMN_DA, -1);
+            values.put(MarksHelper.COLUMN_BG, -1);
+            values.put(MarksHelper.COLUMN_DATE, 42);
+            values.put(MarksHelper.COLUMN_JP, -1);
+            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
+            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values2);
+
+            ContentValues values3 = new ContentValues();
+            values.put(MarksHelper.COLUMN_MA, -1);
+            values.put(MarksHelper.COLUMN_DATE, 43);
+            values.put(MarksHelper.COLUMN_DA, -1);
+            values.put(MarksHelper.COLUMN_BG, -1);
+            values.put(MarksHelper.COLUMN_JP, -1);
+            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
+            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values3);
 
         }
     }

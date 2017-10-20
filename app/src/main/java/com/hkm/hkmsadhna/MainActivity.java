@@ -834,6 +834,27 @@ String s = String.valueOf(year);
         mDataSource.close();
     }
 
+    void printNew(){
+        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        mDataSource.open();
+        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Cursor cursor = mDataSource.readData();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            int i = cursor.getInt(0);
+            int j = cursor.getInt(1);
+            int k = cursor.getInt(2);
+            int l = cursor.getInt(3);
+            int m = cursor.getInt(4);
+            int n = cursor.getInt(5);
+
+            Log.v("MarksFROMRDATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            cursor.moveToNext();
+        }
+        mDataSource.close();
+    }
+
 
     void UploadDatatoFirebase(){
         dialog.show();

@@ -133,6 +133,8 @@ public class SadhnaDataSource {
         else {
             for (int i = 1; i <= totalDaysInMonth ;i++){
                 ContentValues values = new ContentValues();
+                values.put(MarksHelper.COLUMN_MONTH, month);
+                values.put(MarksHelper.COLUMN_YEAR, year);
                 values.put(MarksHelper.COLUMN_MA, -1);
                 values.put(MarksHelper.COLUMN_DA, -1);
                 values.put(MarksHelper.COLUMN_BG, -1);
@@ -140,33 +142,6 @@ public class SadhnaDataSource {
                 values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
                 mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
             }
-
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DATE, 41);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
-
-            ContentValues values2 = new ContentValues();
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_DATE, 42);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values2);
-
-            ContentValues values3 = new ContentValues();
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DATE, 43);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values3);
 
         }
     }

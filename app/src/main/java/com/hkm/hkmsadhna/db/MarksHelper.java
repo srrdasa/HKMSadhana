@@ -38,7 +38,7 @@ public class MarksHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_CREATE =
             "CREATE TABLE " + TABLE_SADHNA + " (" +
-                    COLUMN_DATE + " INTEGER PRIMARY KEY," +
+                    COLUMN_DATE + " INTEGER," +
                     COLUMN_MONTH + " INTEGER," +
                     COLUMN_YEAR + " INTEGER," +
                     COLUMN_MA + " INTEGER," +

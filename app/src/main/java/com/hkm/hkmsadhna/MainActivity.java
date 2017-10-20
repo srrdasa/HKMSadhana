@@ -476,6 +476,7 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         mDataSource.insertOnlyFirstTime();
+        printNew();
         showCards();
 
 //        mDataSource.dropTable();
@@ -838,18 +839,20 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.readDataFromReport(5);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int month = cursor.getInt(1);
+            int year = cursor.getInt(2);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
-            Log.v("MarksFROMRDATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("printnew : "," | \t" + i + " | \t" + month + " | \t" + year + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();

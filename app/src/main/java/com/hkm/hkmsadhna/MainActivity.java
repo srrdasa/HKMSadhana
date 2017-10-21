@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity
         convertedEmail = settings.getString("convertedEmail", "");
         firstTimeinMainActivity = settings.getString("fima", "");
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("UserData").child(year + "").child("9").child(convertedEmail);
-        mcheckForExistence = FirebaseDatabase.getInstance().getReference().child("UserData").child(year + "").child(month + "");
+        myRef = FirebaseDatabase.getInstance().getReference().child("UserData");
+        mcheckForExistence = FirebaseDatabase.getInstance().getReference().child("UserData");
 
         reportTableId = generateIdForTableReport();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(0, date);
+                up_MA(0, date,month,year);
                 print();
                 printOnlyQuery();
 //                mDataSource.open();
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(100, date);
+                up_MA(100, date,month,year);
                 print();
                 printOnlyQuery();
                 Log.v("clickk", "mangala");
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(50, date);
+                up_MA(50, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(8, date);
+                up_MA(8, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(9, date);
+                up_MA(9, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(10, date);
+                up_MA(10, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(0, date);
+                up_SB(0, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(100, date);
+                up_SB(100, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(50, date);
+                up_SB(50, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(10, date);
+                up_SB(10, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -367,7 +367,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(8, date);
+                up_SB(8, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(9, date);
+                up_SB(9, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(0, date);
+                up_DA(0, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(100, date);
+                up_DA(100, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(50, date);
+                up_DA(50, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(9, date);
+                up_DA(9, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(10, date);
+                up_DA(10, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(8, date);
+                up_DA(8, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -452,7 +452,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(100, date);
+                up_JP(100, date,month,year);
                 print();
                 printOnlyQuery();
                 printOnlyQuery();
@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(75, date);
+                up_JP(75, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -474,7 +474,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(50, date);
+                up_JP(50, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -484,7 +484,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(25, date);
+                up_JP(25, date,month,year);
                 print();
                 printOnlyQuery();
 
@@ -494,7 +494,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(0, date);
+                up_JP(0, date,month,year);
                 print();
                 printOnlyQuery();
             }
@@ -584,18 +584,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(100, date);
+                    mDataSource.update_MA(100, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(100, date);
+                    mDataSource.update_DA(100, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(100, date);
+                    mDataSource.update_SB(100, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(100, date);
+                    mDataSource.update_JP(100, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -613,18 +613,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(50, date);
+                    mDataSource.update_MA(50, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(50, date);
+                    mDataSource.update_DA(50, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(50, date);
+                    mDataSource.update_SB(50, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(50, date);
+                    mDataSource.update_JP(50, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -642,18 +642,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(0, date);
+                    mDataSource.update_MA(0, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(0, date);
+                    mDataSource.update_DA(0, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(0, date);
+                    mDataSource.update_SB(0, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(0, date);
+                    mDataSource.update_JP(0, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -671,18 +671,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(8, date);
+                    mDataSource.update_MA(8, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(8, date);
+                    mDataSource.update_DA(8, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(8, date);
+                    mDataSource.update_SB(8, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(8, date);
+                    mDataSource.update_JP(8, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -700,18 +700,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(10, date);
+                    mDataSource.update_MA(10, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(10, date);
+                    mDataSource.update_DA(10, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(10, date);
+                    mDataSource.update_SB(10, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(10, date);
+                    mDataSource.update_JP(10, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -729,18 +729,18 @@ public class MainActivity extends AppCompatActivity
                 int n = cursor.getInt(7);
 
                 if (j == -1) {
-                    mDataSource.update_MA(9, date);
+                    mDataSource.update_MA(9, date,month,year);
                 }
                 if (k == -1) {
-                    mDataSource.update_DA(9, date);
+                    mDataSource.update_DA(9, date,month,year);
                 }
                 if (l == -1) {
-                    mDataSource.update_SB(9, date);
+                    mDataSource.update_SB(9, date,month,year);
                 }
                 if (m == -1) {
-                    mDataSource.update_JP(9, date);
+                    mDataSource.update_JP(9, date,month,year);
                 }
-                mDataSource.update_IS(1, date);
+                mDataSource.update_IS(1, date,month,year);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -981,7 +981,7 @@ public class MainActivity extends AppCompatActivity
             totleBG = totleBG + l;
 
             if (j != -1 && k != -1 && l != -1 && m != -1) {
-                up_IS(1, date);
+                up_IS(1, date,month,year);
                 Log.v("hamkk", "hmkk");
                 print();
 //                isupdated.setVisibility(View.VISIBLE);
@@ -1065,7 +1065,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             if (j != -1 && k != -1 && l != -1 && m != -1) {
-                up_IS(1, date);
+                up_IS(1, date,month,year);
                 isupdated.setVisibility(View.VISIBLE);
                 print();
             } else {
@@ -1157,49 +1157,49 @@ public class MainActivity extends AppCompatActivity
         readTime();
     }
 
-    void up_MA(int value, int id) {
+    void up_MA(int value, int id,int month,int year) {
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_MA(value, id);
+        mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
 
     }
 
-    void up_DA(int value, int id) {
+    void up_DA(int value, int id,int month,int year) {
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_DA(value, id);
+        mDataSource.update_DA(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_SB(int value, int id) {
+    void up_SB(int value, int id,int month,int year) {
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_SB(value, id);
+        mDataSource.update_SB(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_JP(int value, int id) {
+    void up_JP(int value, int id,int month,int year) {
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_JP(value, id);
+        mDataSource.update_JP(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_IS(int value, int id) {
+    void up_IS(int value, int id,int month,int year) {
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_IS(value, id);
+        mDataSource.update_IS(value, id,month,year);
         mDataSource.close();
     }
 
     public void resett() {
         mDataSource.open();
-        mDataSource.update_JP(-1, date);
-        mDataSource.update_MA(-1, date);
-        mDataSource.update_SB(-1, date);
-        mDataSource.update_DA(-1, date);
-        mDataSource.update_IS(-1, date);
+        mDataSource.update_JP(-1, date,month,year);
+        mDataSource.update_MA(-1, date,month,year);
+        mDataSource.update_SB(-1, date,month,year);
+        mDataSource.update_DA(-1, date,month,year);
+        mDataSource.update_IS(-1, date,month,year);
         mDataSource.close();
 
         ma_Card.setVisibility(View.VISIBLE);
@@ -1462,7 +1462,7 @@ public class MainActivity extends AppCompatActivity
         waitForOneSec(punch_da);
         removeCard(da_Card);
         waitForOneSec(da_Card);
-        up_DA(3, date);//TODO : calculate point based on time for all three cards
+        up_DA(3, date,month,year);//TODO : calculate point based on time for all three cards
     }
 
     public void punch_ma_onclick(View view) {
@@ -1470,7 +1470,7 @@ public class MainActivity extends AppCompatActivity
         waitForOneSec(punch_ma);
         removeCard(ma_Card);
         waitForOneSec(ma_Card);
-        up_MA(100, date);//TODO : calculate point based on time for all three cards
+        up_MA(100, date,month,year);//TODO : calculate point based on time for all three cards
     }
 
     public void punch_sb_onclick(View view) {
@@ -1478,7 +1478,7 @@ public class MainActivity extends AppCompatActivity
         waitForOneSec(punch_sb);
         removeCard(sb_Card);
         waitForOneSec(sb_Card);
-        up_SB(3, date);//TODO : calculate point based on time for all three cards
+        up_SB(3, date,month,year);//TODO : calculate point based on time for all three cards
     }
 
     public void table(View view) {
@@ -1493,7 +1493,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void getValueFromFirebase() {
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(year + "").child(month+"").child(convertedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("Datasnapshopt", dataSnapshot + "");
@@ -1516,16 +1516,16 @@ public class MainActivity extends AppCompatActivity
 
                     mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
                     mDataSource.open();
-                    mDataSource.update_SB(Ibg, i);
-                    mDataSource.update_JP(Ijp, i);
-                    mDataSource.update_MA(Ima, i);
-                    mDataSource.update_DA(Ida, i);
+                    mDataSource.update_SB(Ibg, i,month,year);
+                    mDataSource.update_JP(Ijp, i,month,year);
+                    mDataSource.update_MA(Ima, i,month,year);
+                    mDataSource.update_DA(Ida, i,month,year);
 
                     if (Ibg != -1 && Ida != -1 && Ijp != -1 && Ima != -1) {
-                        up_IS(1, i);
+                        up_IS(1, i,month,year);
                         print();
                     } else {
-                        up_IS(-1, i);
+                        up_IS(-1, i,month,year);
                     }
                     mDataSource.close();
                     mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
@@ -1544,6 +1544,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+
+
 
         DatabaseReference mUploadReport = FirebaseDatabase.getInstance().getReference().child("Report").child(convertedEmail);
 
@@ -1593,7 +1597,7 @@ public class MainActivity extends AppCompatActivity
     void checkUserDatabaseExistOrNot() {
 
         dialog.show();
-        mcheckForExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+        mcheckForExistence.child(year + "").child(month + "").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("mmmm", dataSnapshot + "");
@@ -1617,7 +1621,99 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        final int i = month;
+        final int j = year;
+        if (i == 0){
+            i = 11;
+            j --;
+        }
+        else {
+            i--;
+        }
+
+        mcheckForExistence.child(j+ "").child(i+ "").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("mmmm", dataSnapshot + "");
+                if (dataSnapshot.hasChild(convertedEmail)) {
+                    getLastMonthValueFromFirebase(i,j);
+                    uncompleteDaysOfSadhna();
+                    showCards();
+                    SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
+                    // Writing data to SharedPreferences
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("fima", "yes");
+                    firstTimeinMainActivity = "yes";
+                    editor.commit();
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         dialog.dismiss();
+    }
+
+    private void getLastMonthValueFromFirebase(final int monthh, final int yearr) {
+        myRef.child(yearr + "").child(monthh+"").child(convertedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+mDataSource.insertOnlyFirstTimeInTableSadhanaForLastMonth();
+                Log.v("Datasnapshopt", dataSnapshot + "");
+                int i = 1;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String bg = ds.child("BG").getValue().toString();
+                    int Ibg = Integer.parseInt(bg);
+                    String jp = ds.child("JP").getValue().toString();
+                    int Ijp = Integer.parseInt(jp);
+
+                    String da = ds.child("DA").getValue().toString();
+                    int Ida = Integer.parseInt(da);
+
+                    String ma = ds.child("MA").getValue().toString();
+                    int Ima = Integer.parseInt(ma);
+
+                    Log.v("Count", bg);
+                    Log.v("CountValue", i + "");
+
+
+                    mDataSource.open();
+                    mDataSource.update_SB(Ibg, i,monthh,yearr);
+                    mDataSource.update_JP(Ijp, i,monthh,yearr);
+                    mDataSource.update_MA(Ima, i,monthh,yearr);
+                    mDataSource.update_DA(Ida, i,monthh,yearr);
+
+                    if (Ibg != -1 && Ida != -1 && Ijp != -1 && Ima != -1) {
+                        up_IS(1, i,monthh,yearr);
+                        print();
+                    } else {
+                        up_IS(-1, i,monthh,yearr);
+                    }
+                    mDataSource.close();
+                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+                    mDataSource.open();
+                    Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+                    mDataSource.close();
+                    i++;
+                }
+                uncompleteDaysOfSadhna();
+                showCards();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private boolean isNetworkConnected() {

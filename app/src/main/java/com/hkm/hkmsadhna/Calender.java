@@ -1190,35 +1190,35 @@ public class Calender extends AppCompatActivity {
     void up_MA(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_MA(value, id);
+        mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_DA(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_DA(value, id);
+        mDataSource.update_DA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_SB(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_SB(value, id);
+        mDataSource.update_SB(value, id,month,year);
         mDataSource.close();
     }
 
     void up_JP(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_JP(value, id);
+        mDataSource.update_JP(value, id,month,year);
         mDataSource.close();
     }
 
     void up_IS(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_IS(value, id);
+        mDataSource.update_IS(value, id,month,year);
         mDataSource.close();
     }
 

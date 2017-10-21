@@ -41,44 +41,43 @@ public class SadhnaDataSource {
         mDatabase.close();
     }
 
-
-    public void update_MA(int ma,int id) {
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_MA, ma);
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
+    public void update_MA(int ma,int id,int month,int year) {
+        ContentValues values = new ContentValues();
+        values.put(MarksHelper.COLUMN_MA, ma);
+        String where = MarksHelper.COLUMN_DATE+"=? AND " + MarksHelper.COLUMN_MONTH + " = ? AND " + MarksHelper.COLUMN_YEAR + " = ?";
+        String[] whereArgs = new String[] {String.valueOf(id),String.valueOf(month),String.valueOf(year)};
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
-    public void update_DA(int da,int id) {
+    public void update_DA(int da,int id,int month,int year) {
         ContentValues values = new ContentValues();
         values.put(MarksHelper.COLUMN_DA, da);
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
+        String where = MarksHelper.COLUMN_DATE+"=? AND " + MarksHelper.COLUMN_MONTH + " = ? AND " + MarksHelper.COLUMN_YEAR + " = ?";
+        String[] whereArgs = new String[] {String.valueOf(id),String.valueOf(month),String.valueOf(year)};
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
-    public void update_SB(int sb,int id) {
+    public void update_SB(int sb,int id,int month,int year) {
         ContentValues values = new ContentValues();
         values.put(MarksHelper.COLUMN_BG, sb);
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
+        String where = MarksHelper.COLUMN_DATE+"=? AND " + MarksHelper.COLUMN_MONTH + " = ? AND " + MarksHelper.COLUMN_YEAR + " = ?";
+        String[] whereArgs = new String[] {String.valueOf(id),String.valueOf(month),String.valueOf(year)};
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
-    public void update_JP(int jp,int id) {
+    public void update_JP(int jp,int id,int month,int year) {
         ContentValues values = new ContentValues();
         values.put(MarksHelper.COLUMN_JP, jp);
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
+        String where = MarksHelper.COLUMN_DATE+"=? AND " + MarksHelper.COLUMN_MONTH + " = ? AND " + MarksHelper.COLUMN_YEAR + " = ?";
+        String[] whereArgs = new String[] {String.valueOf(id),String.valueOf(month),String.valueOf(year)};
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
-    public void update_IS(int is,int id) {
+    public void update_IS(int is,int id,int month,int year) {
         ContentValues values = new ContentValues();
         values.put(MarksHelper.COLUMN_ISCOMPLETED, is);
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
+        String where = MarksHelper.COLUMN_DATE+"=? AND " + MarksHelper.COLUMN_MONTH + " = ? AND " + MarksHelper.COLUMN_YEAR + " = ?";
+        String[] whereArgs = new String[] {String.valueOf(id),String.valueOf(month),String.valueOf(year)};
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
@@ -103,6 +102,35 @@ public class SadhnaDataSource {
                 mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
             }
 
+        }
+    }
+
+    public void insertOnlyFirstTimeInTableSadhanaForLastMonth() {
+        int i = month,j = year;
+        if (month == 0){
+            i = 11;
+            j = year--;
+        }
+        else {
+            i--;
+        }
+        if (checkRowExistOrNotFromSadhna(28,i,j)){
+
+
+        }
+        else {
+            for (int z = 1; z <= totalDaysInMonth ;z++){
+                ContentValues values = new ContentValues();
+                values.put(MarksHelper.COLUMN_MONTH, month);
+                values.put(MarksHelper.COLUMN_YEAR, year);
+                values.put(MarksHelper.COLUMN_DATE, z);
+                values.put(MarksHelper.COLUMN_MA, -1);
+                values.put(MarksHelper.COLUMN_DA, -1);
+                values.put(MarksHelper.COLUMN_BG, -1);
+                values.put(MarksHelper.COLUMN_JP, -1);
+                values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
+                mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
+            }
         }
     }
 
@@ -149,12 +177,48 @@ public class SadhnaDataSource {
         return cursor;
     }
 
+    public Cursor getDataForLastMonth() {
+        int tMonth,tYear;
+        if (month == 0){
+            tMonth = 11;
+            tYear = year - 1;
+        }
+        else {
+            tMonth = month - 1;
+            tYear = year;
+        }
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+ MarksHelper.COLUMN_YEAR + " = "+ tYear+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ tMonth +";",null);
+        return cursor;
+    }
+
+    public Cursor getDataForLastMonth(int id) {
+        int tMonth,tYear;
+        if (month == 0){
+            tMonth = 11;
+            tYear = year - 1;
+        }
+        else {
+            tMonth = month - 1;
+            tYear = year;
+        }
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+ MarksHelper.COLUMN_DATE + " = "+ id+ " AND " + MarksHelper.COLUMN_YEAR + " = "+ tYear+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ tMonth +";",null);
+        return cursor;
+    }
+
     public Cursor getDataForCurruntMonth() {
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+ MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
         return cursor;
     }
 
     public boolean checkRowExistOrNotFromSadhna(int id) {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        else return true;
+    }
+    public boolean checkRowExistOrNotFromSadhna(int id,int month,int year) {
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
         if(cursor.getCount() <= 0){
             cursor.close();

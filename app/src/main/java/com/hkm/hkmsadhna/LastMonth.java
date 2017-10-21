@@ -37,7 +37,7 @@ public class LastMonth extends AppCompatActivity {
     int[] fromSQL = new int[100];
     ImageView[] imgView = new ImageView[43];
     ImageView[] extraImgView = new ImageView[4];
-
+    int momonthStartsFromForLast;
     ImageView fab, fabAll, fabExcuse, img, fabCancle, fabSick, fabOS, fabOthor;
     LinearLayout lastLayout;
     int monthStartsFrom, totalDaysInLastMonth, month, date, day, gap, year, actualLimit;
@@ -262,7 +262,7 @@ public class LastMonth extends AppCompatActivity {
 //        totalDaysInLastMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
         monthStartsFrom = dayStart(date, day);
 
-        int momonthStartsFromForLast = MonthStartsFromFunc(monthStartsFrom);
+        momonthStartsFromForLast = MonthStartsFromFunc(monthStartsFrom);
 
         gap = momonthStartsFromForLast - 1;
         actualLimit = totalDaysInLastMonth + gap;
@@ -993,7 +993,7 @@ public class LastMonth extends AppCompatActivity {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth();
+        Cursor cursor = mDataSource.getDataForLastMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
@@ -1012,15 +1012,7 @@ public class LastMonth extends AppCompatActivity {
         int i = 1;
         while (i <= totalDaysInMonth) {
             Log.v("Inside While", "i = " + i);
-
-            if (i == date) {
-                makeToday(i + gap);
-            } else {
                 //TODO  check weather data has been stored or not
-                if (i > date) {
-                    imgView[i + gap].setImageResource(R.drawable.normal);
-                    Log.v("Working", "yes " + i);
-                } else {
                     if (fromSQL[i] == -1) {
                         imgView[i + gap].setImageResource(R.drawable.red);
                     } else if (fromSQL[i] == 1) {
@@ -1029,9 +1021,6 @@ public class LastMonth extends AppCompatActivity {
                     } else {
                         imgView[i + gap].setImageResource(R.drawable.normal);
                     }
-
-                }
-            }
             i++;
         }
     }
@@ -1055,7 +1044,6 @@ public class LastMonth extends AppCompatActivity {
     }
 
     void singleClick(final int i) {
-        if (i >= monthStartsFrom && i <= date + gap) {
             if (longClickEnable == true) {
                 if (i == date + gap) {
                     imgView[i].setImageResource(R.drawable.select);
@@ -1068,19 +1056,16 @@ public class LastMonth extends AppCompatActivity {
                     addToArray(i - gap);
                 }
             } else {
-                Intent myIntent = new Intent(LastMonth.this, EachDay.class);
+                Intent myIntent = new Intent(LastMonth.this, EachDayLastMonth.class);
                 myIntent.putExtra("date", (i - gap));
                 Log.v("NEW INTENT", "((LastMonth.this, eachDay.class)");
 
                 startActivity(myIntent);
-
             }
-        }
         Log.v("Array : ", arl + "");
     }
 
     void doubleClick(int i) {
-        if (i >= monthStartsFrom && i <= date + gap) {
             if (i == date + gap) {
                 imgView[i].setImageResource(R.drawable.select);
                 dateCal[i].setTextColor(Color.BLACK);
@@ -1092,7 +1077,6 @@ public class LastMonth extends AppCompatActivity {
                 imgView[i].setImageResource(R.drawable.select);
                 fabAppear();
                 addToArray(i - gap);
-            }
         }
         Log.v("Array : ", arl + "");
     }
@@ -1218,35 +1202,35 @@ public class LastMonth extends AppCompatActivity {
     void up_MA(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_MA(value, id);
+        mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_DA(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_DA(value, id);
+        mDataSource.update_DA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_SB(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_SB(value, id);
+        mDataSource.update_SB(value, id,month,year);
         mDataSource.close();
     }
 
     void up_JP(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_JP(value, id);
+        mDataSource.update_JP(value, id,month,year);
         mDataSource.close();
     }
 
     void up_IS(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_IS(value, id);
+        mDataSource.update_IS(value, id,month,year);
         mDataSource.close();
     }
 

@@ -24,16 +24,15 @@ import com.hkm.hkmsadhna.db.SadhnaDataSource;
 
 import java.util.Calendar;
 
-public class EachDay extends AppCompatActivity {
+public class EachDayLastMonth extends AppCompatActivity {
 
     String DB_NAME = "new.db";
 
     protected SadhnaDataSource mDataSource;
     int[] fromSQL = new int[32];
 
-    int month,year;
-
     int date;
+    int month,year;
     LinearLayout ma_f, sb_f, da_f, ma_b;
     Switch ma_Switch, da_Switch, sb_Switch;
     TextView title_ma, title_sb, title_da, title_japa, just;
@@ -49,8 +48,14 @@ public class EachDay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_each_day);
+        setContentView(R.layout.activity_each_day_last_month);
         Window window = this.getWindow();
+
+        Calendar calendar = Calendar.getInstance();
+         month = calendar.get(Calendar.MONTH) -1;
+         year = calendar.get(Calendar.YEAR);
+
+
 
         Intent mIntent = getIntent();
         date = mIntent.getIntExtra("date", 0);
@@ -58,15 +63,11 @@ public class EachDay extends AppCompatActivity {
 
         Log.v("Bundle :", date + "");
 
-        Calendar calendar = Calendar.getInstance();
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         print();
         printOnlyQuery();
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         ma_Card = (CardView) findViewById(R.id.ma_card_view);
         sb_Card = (CardView) findViewById(R.id.sb_card_view);
         da_Card = (CardView) findViewById(R.id.da_card_view);
@@ -407,10 +408,10 @@ public class EachDay extends AppCompatActivity {
         });
 
 
-        Toast.makeText(EachDay.this, "" + date,
+        Toast.makeText(EachDayLastMonth.this, "" + date,
                 Toast.LENGTH_LONG).show();
 
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.insertOnlyFirstTimeInTableSadhana();
         showCards();
@@ -442,7 +443,7 @@ public class EachDay extends AppCompatActivity {
             return true;
         } else if (id == R.id.full) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -471,7 +472,7 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         } else if (id == R.id.half) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -500,7 +501,7 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         } else if (id == R.id.no) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -529,7 +530,7 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         } else if (id == R.id.sick) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -558,7 +559,7 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         } else if (id == R.id.others) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -587,7 +588,7 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         } else if (id == R.id.os) {
             mDataSource.open();
-            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+            Cursor cursor = mDataSource.getDataForLastMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
@@ -632,10 +633,10 @@ public class EachDay extends AppCompatActivity {
     }
 
     void print() {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("MarksFROMEachDay : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth();
+        Cursor cursor = mDataSource.getDataForLastMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int a = cursor.getColumnIndex(MarksHelper.COLUMN_DATE);
@@ -693,10 +694,10 @@ public class EachDay extends AppCompatActivity {
     }
 
     void printOnlyQuery() {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+        Cursor cursor = mDataSource.getDataForLastMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
@@ -720,10 +721,10 @@ public class EachDay extends AppCompatActivity {
     }
 
     void showCards() {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
+        Cursor cursor = mDataSource.getDataForLastMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
@@ -766,35 +767,35 @@ public class EachDay extends AppCompatActivity {
     }
 
     void up_MA(int value, int id,int month,int year) {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_DA(int value, int id,int month,int year) {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_DA(value, id,month,year);
         mDataSource.close();
     }
 
     void up_SB(int value, int id,int month,int year) {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_SB(value, id,month,year);
         mDataSource.close();
     }
 
     void up_JP(int value, int id,int month,int year) {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_JP(value, id,month,year);
         mDataSource.close();
     }
 
     void up_IS(int value, int id,int month,int year) {
-        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDayLastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_IS(value, id,month,year);
         mDataSource.close();

@@ -79,11 +79,11 @@ public class Recycler_view extends AppCompatActivity {
         while (z <= date) {
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
             ListItem item = new ListItem();
 
             if (i == -1){

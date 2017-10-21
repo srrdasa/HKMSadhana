@@ -164,6 +164,11 @@ public class SadhnaDataSource {
     }
 
     public Cursor getAllDataFromTableSadhna() {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+";",null);
+        return cursor;
+    }
+
+    public Cursor getAllDataFromTableReport() {
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_REPORT+";",null);
         return cursor;
     }

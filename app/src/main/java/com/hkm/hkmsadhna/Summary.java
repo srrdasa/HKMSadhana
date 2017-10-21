@@ -71,7 +71,7 @@ public class Summary extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(Summary.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth();
+        Cursor cursor = mDataSource.getAllDataFromTableReport();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 

@@ -838,8 +838,8 @@ String s = String.valueOf(year);
     void printNew(){
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth(5);
+        Log.v("Marks : "," | \t" + "Date" + " | \t" + "Month" + " | \t" + "Year" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Cursor cursor = mDataSource.getAllDataFromTableSadhna();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 

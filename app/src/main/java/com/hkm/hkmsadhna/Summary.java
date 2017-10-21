@@ -25,7 +25,7 @@ public class Summary extends AppCompatActivity {
     private NewDerpAdapter adapter;
     int date;
     protected SadhnaDataSource mDataSource;
-    TextView id,maPoints,daPoints,sbPoints,jpPoints,summary;
+    TextView id, maPoints, daPoints, sbPoints, jpPoints, summary;
     RecyclerView RecView;
     Typeface t;
 
@@ -37,20 +37,20 @@ public class Summary extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
-        mDataSource = new SadhnaDataSource(Summary.this,DB_NAME);
-        RecView = (RecyclerView)findViewById(R.id.recycler_view_summary);
+        mDataSource = new SadhnaDataSource(Summary.this, DB_NAME);
+        RecView = (RecyclerView) findViewById(R.id.recycler_view_summary);
         RecView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NewDerpAdapter(print(),this,t);
+        adapter = new NewDerpAdapter(print(), this, t);
         RecView.setAdapter(adapter);
-        id = (TextView)findViewById(R.id.id);
+        id = (TextView) findViewById(R.id.id);
         id.setTypeface(t);
-        maPoints = (TextView)findViewById(R.id.ma);
+        maPoints = (TextView) findViewById(R.id.ma);
         maPoints.setTypeface(t);
-        daPoints = (TextView)findViewById(R.id.da);
+        daPoints = (TextView) findViewById(R.id.da);
         daPoints.setTypeface(t);
-        sbPoints = (TextView)findViewById(R.id.sb);
+        sbPoints = (TextView) findViewById(R.id.sb);
         sbPoints.setTypeface(t);
-        jpPoints = (TextView)findViewById(R.id.jp);
+        jpPoints = (TextView) findViewById(R.id.jp);
         jpPoints.setTypeface(t);
 
     }
@@ -58,19 +58,19 @@ public class Summary extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        RecView = (RecyclerView)findViewById(R.id.recycler_view_summary);
+        RecView = (RecyclerView) findViewById(R.id.recycler_view_summary);
         RecView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NewDerpAdapter(print(),this,t);
+        adapter = new NewDerpAdapter(print(), this, t);
         RecView.setAdapter(adapter);
     }
 
-    public List<ListItem> print(){
+    public List<ListItem> print() {
         int z = 1;
         SadhnaDataSource mDataSource;
         List<ListItem> data = new ArrayList<>();
-        mDataSource = new SadhnaDataSource(Summary.this,DB_NAME);
+        mDataSource = new SadhnaDataSource(Summary.this, DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getAllDataFromTableReport();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -83,42 +83,37 @@ public class Summary extends AppCompatActivity {
             int n = cursor.getInt(5);
             ListItem item = new ListItem();
 
-            if (i == -1){
+            if (i == -1) {
                 item.setId("0");
-            }
-            else
-                item.setId(i+"");
+            } else
+                item.setId(i + "");
 
-            if (j == -1){
+            if (j == -1) {
                 item.setMaPoints("0");
-            }
-            else
-                item.setMaPoints(j+"");
+            } else
+                item.setMaPoints(j + "");
 
-            if (k == -1){
+            if (k == -1) {
                 item.setDaPoints("0");
-            }
-            else
-                item.setDaPoints(k+"");
+            } else
+                item.setDaPoints(k + "");
 
 
-            if (l == -1){
+            if (l == -1) {
                 item.setSbPoints("0");
-            }
-            else
-                item.setSbPoints(l+"");
+            } else
+                item.setSbPoints(l + "");
 
 
-            if (m == -1){
+            if (m == -1) {
                 item.setJpPoints("0");
-            }
-            else
-                item.setJpPoints(m+"");
+            } else
+                item.setJpPoints(m + "");
 
 
             data.add(item);
 
-            Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
             z++;
         }

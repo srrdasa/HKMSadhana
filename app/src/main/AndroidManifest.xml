@@ -48,7 +48,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hkm.hkmsadhna.MainActivity" />
         </activity>
-        <activity android:name=".Summary"></activity>
+        <activity android:name=".Summary" />
+        <activity android:name=".LastMonth"></activity>
     </application>
 
 </manifest>

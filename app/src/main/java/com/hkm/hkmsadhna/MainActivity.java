@@ -44,22 +44,22 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    int totalMA=0,totleJP=0,totalDA=0,totleBG=0;
+    int totalMA = 0, totleJP = 0, totalDA = 0, totleBG = 0;
     String DB_NAME = "new.db";
     protected SadhnaDataSource mDataSource;
     int[] fromSQL = new int[100];
-    String maFrom,maTo,sbFrom,sbTo,daFrom,daTo,firstTimeinMainActivity;
-    int date,hour,minuit,month,year;
-    LinearLayout ma_f,sb_f,da_f,ma_b;
-    Switch ma_Switch,da_Switch,sb_Switch;
-    TextView title_ma,title_sb,title_da,title_japa,textView,dateTxt;
-    CardView ma_Card,sb_Card,da_Card,japa_card;
-    ImageView ma_f_full,ma_f_partial,ma_f_no,ma_b_sick,ma_b_os,ma_b_other,
-            sb_f_no,sb_f_full,sb_f_partial,sb_b_os,sb_b_sick,sb_b_other,
-            da_f_full,da_f_partial,da_f_no,da_b_os,da_b_sick,da_b_other,
-            japa_one,japa_two,japa_three,japa_four,japa_five,
-            img,isupdated,
-            punch_ma,punch_da,punch_sb;
+    String maFrom, maTo, sbFrom, sbTo, daFrom, daTo, firstTimeinMainActivity;
+    int date, hour, minuit, month, year;
+    LinearLayout ma_f, sb_f, da_f, ma_b;
+    Switch ma_Switch, da_Switch, sb_Switch;
+    TextView title_ma, title_sb, title_da, title_japa, textView, dateTxt;
+    CardView ma_Card, sb_Card, da_Card, japa_card;
+    ImageView ma_f_full, ma_f_partial, ma_f_no, ma_b_sick, ma_b_os, ma_b_other,
+            sb_f_no, sb_f_full, sb_f_partial, sb_b_os, sb_b_sick, sb_b_other,
+            da_f_full, da_f_partial, da_f_no, da_b_os, da_b_sick, da_b_other,
+            japa_one, japa_two, japa_three, japa_four, japa_five,
+            img, isupdated,
+            punch_ma, punch_da, punch_sb;
     int reportTableId;
     String convertedEmail;
     boolean b;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
     FirebaseAuth.AuthStateListener authlistner;
 
     FirebaseDatabase database;
-    DatabaseReference myRef,mUpload,mcheckForExistence;
+    DatabaseReference myRef, mUpload, mcheckForExistence;
 
 
     @Override
@@ -89,22 +89,22 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        dateTxt = (TextView)findViewById(R.id.dateText);
+        dateTxt = (TextView) findViewById(R.id.dateText);
 
         firebaseAuth = FirebaseAuth.getInstance();
         Calendar calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-        Log.v("Month",month+"");
-        Log.v("year",year+"");
+        Log.v("Month", month + "");
+        Log.v("year", year + "");
         SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
         String value = settings.getString("email", "");
         convertedEmail = settings.getString("convertedEmail", "");
         firstTimeinMainActivity = settings.getString("fima", "");
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("UserData").child(year+"").child("9").child(convertedEmail);
-        mcheckForExistence = FirebaseDatabase.getInstance().getReference().child("UserData").child(year+"").child(month+"");
+        myRef = FirebaseDatabase.getInstance().getReference().child("UserData").child(year + "").child("9").child(convertedEmail);
+        mcheckForExistence = FirebaseDatabase.getInstance().getReference().child("UserData").child(year + "").child(month + "");
 
         reportTableId = generateIdForTableReport();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -112,34 +112,34 @@ public class MainActivity extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
 
 
-String s = String.valueOf(year);
+        String s = String.valueOf(year);
 
 
-        authlistner = new FirebaseAuth.AuthStateListener(){
+        authlistner = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
-                if (firebaseAuth.getCurrentUser() == null){
-                    startActivity(new Intent(MainActivity.this,Login.class));
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    startActivity(new Intent(MainActivity.this, Login.class));
                 }
             }
         };
 
-        img = (ImageView)findViewById(R.id.img);
-        isupdated = (ImageView)findViewById(R.id.isupdated);
+        img = (ImageView) findViewById(R.id.img);
+        isupdated = (ImageView) findViewById(R.id.isupdated);
 
-        checkForAutomaticDate();
+//        checkForAutomaticDate();
 
 
 //        UploadDatatoFirebase();
 
 
-        punch_da = (ImageView)findViewById(R.id.punch_da);
-        punch_ma = (ImageView)findViewById(R.id.punch_ma);
-        punch_sb = (ImageView)findViewById(R.id.punch_sb);
+        punch_da = (ImageView) findViewById(R.id.punch_da);
+        punch_ma = (ImageView) findViewById(R.id.punch_ma);
+        punch_sb = (ImageView) findViewById(R.id.punch_sb);
 
         print();
         printOnlyQuery();
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
         month = calendar.get(Calendar.MONTH);
@@ -149,31 +149,31 @@ String s = String.valueOf(year);
 
         dateTxt.setText(date + " - " + MonArray[month] + " - " + year);
 
-        Log.v("Cal : ","Hour : "+hour);
-        Log.v("Cal : ","Minuit : "+minuit);
+        Log.v("Cal : ", "Hour : " + hour);
+        Log.v("Cal : ", "Minuit : " + minuit);
 
-        ma_Card = (CardView)findViewById(R.id.ma_card_view);
-        sb_Card = (CardView)findViewById(R.id.sb_card_view);
-        da_Card = (CardView)findViewById(R.id.da_card_view);
-        japa_card = (CardView)findViewById(R.id.japa_card_view);
+        ma_Card = (CardView) findViewById(R.id.ma_card_view);
+        sb_Card = (CardView) findViewById(R.id.sb_card_view);
+        da_Card = (CardView) findViewById(R.id.da_card_view);
+        japa_card = (CardView) findViewById(R.id.japa_card_view);
 
         ma_Switch = (Switch) findViewById(R.id.switch1);
         da_Switch = (Switch) findViewById(R.id.switch2);
         sb_Switch = (Switch) findViewById(R.id.switch3);
 
-        title_ma = (TextView)findViewById(R.id.title_ma);
-        textView = (TextView)findViewById(R.id.textView);
-        title_sb = (TextView)findViewById(R.id.title_sb);
-        title_da = (TextView)findViewById(R.id.title_da);
-        title_japa = (TextView)findViewById(R.id.title_japa);
+        title_ma = (TextView) findViewById(R.id.title_ma);
+        textView = (TextView) findViewById(R.id.textView);
+        title_sb = (TextView) findViewById(R.id.title_sb);
+        title_da = (TextView) findViewById(R.id.title_da);
+        title_japa = (TextView) findViewById(R.id.title_japa);
 
-        Log.v("Email",value);
+        Log.v("Email", value);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header=navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
 /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
-       TextView textVieww = (TextView)header.findViewById(R.id.textView);
+        TextView textVieww = (TextView) header.findViewById(R.id.textView);
         textVieww.setText(value);
 
 //        Typeface tf = Typeface.createFromAsset(getAssets(), "abhi.ttf");
@@ -182,10 +182,10 @@ String s = String.valueOf(year);
 //        title_da.setTypeface(tf);
 //        title_japa.setTypeface(tf);
 
-        ma_b = (LinearLayout)findViewById(R.id.ma_b);
-        ma_f = (LinearLayout)findViewById(R.id.ma_f);
-        da_f = (LinearLayout)findViewById(R.id.da_f);
-        sb_f = (LinearLayout)findViewById(R.id.sb_f);
+        ma_b = (LinearLayout) findViewById(R.id.ma_b);
+        ma_f = (LinearLayout) findViewById(R.id.ma_f);
+        da_f = (LinearLayout) findViewById(R.id.da_f);
+        sb_f = (LinearLayout) findViewById(R.id.sb_f);
 
         ma_f_full = (ImageView) findViewById(R.id.ma_f_full);
         ma_f_partial = (ImageView) findViewById(R.id.ma_f_partial);
@@ -218,10 +218,9 @@ String s = String.valueOf(year);
         ma_Switch.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (ma_Switch.isChecked()){
+                if (ma_Switch.isChecked()) {
                     ma_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     ma_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -230,10 +229,9 @@ String s = String.valueOf(year);
         da_Switch.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (da_Switch.isChecked()){
+                if (da_Switch.isChecked()) {
                     da_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     da_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -244,8 +242,7 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 if (sb_Switch.isChecked()) {
                     sb_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     sb_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -258,7 +255,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(0,date);print();printOnlyQuery();
+                up_MA(0, date);
+                print();
+                printOnlyQuery();
 //                mDataSource.open();
 //                mDataSource.update_MA(3,30);
 //                mDataSource.close();
@@ -270,8 +269,10 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(100,date);print();printOnlyQuery();
-                Log.v("clickk","mangala");
+                up_MA(100, date);
+                print();
+                printOnlyQuery();
+                Log.v("clickk", "mangala");
             }
         });
         ma_f_partial.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +280,7 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(50,date);
+                up_MA(50, date);
                 print();
                 printOnlyQuery();
             }
@@ -291,7 +292,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(8,date);print();printOnlyQuery();
+                up_MA(8, date);
+                print();
+                printOnlyQuery();
             }
         });
         ma_b_os.setOnClickListener(new View.OnClickListener() {
@@ -299,7 +302,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(9,date);print();printOnlyQuery();
+                up_MA(9, date);
+                print();
+                printOnlyQuery();
             }
         });
         ma_b_other.setOnClickListener(new View.OnClickListener() {
@@ -307,7 +312,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(10,date);print();printOnlyQuery();
+                up_MA(10, date);
+                print();
+                printOnlyQuery();
             }
         });
 
@@ -318,14 +325,18 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(0,date);print();printOnlyQuery();
+                up_SB(0, date);
+                print();
+                printOnlyQuery();
             }
         });
         sb_f_full.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(100,date);print();printOnlyQuery();
+                up_SB(100, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -333,7 +344,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(50,date);print();printOnlyQuery();
+                up_SB(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -343,7 +356,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(10,date);print();printOnlyQuery();
+                up_SB(10, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -352,7 +367,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(8,date);print();printOnlyQuery();
+                up_SB(8, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -360,7 +377,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(9,date);print();printOnlyQuery();
+                up_SB(9, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -370,7 +389,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(0,date);print();printOnlyQuery();
+                up_DA(0, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -378,7 +399,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(100,date);print();printOnlyQuery();
+                up_DA(100, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -386,7 +409,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(50,date);print();printOnlyQuery();
+                up_DA(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -396,7 +421,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(9,date);print();printOnlyQuery();
+                up_DA(9, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -404,7 +431,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(10,date);print();printOnlyQuery();
+                up_DA(10, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -412,7 +441,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(8,date);print();printOnlyQuery();
+                up_DA(8, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -421,7 +452,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(100,date);print();printOnlyQuery();
+                up_JP(100, date);
+                print();
+                printOnlyQuery();
                 printOnlyQuery();
 
             }
@@ -431,7 +464,7 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(75,date);
+                up_JP(75, date);
                 print();
                 printOnlyQuery();
 
@@ -441,7 +474,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(50,date);print();printOnlyQuery();
+                up_JP(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -449,7 +484,9 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(25,date);print();printOnlyQuery();
+                up_JP(25, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -457,7 +494,8 @@ String s = String.valueOf(year);
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(0,date);print();
+                up_JP(0, date);
+                print();
                 printOnlyQuery();
             }
         });
@@ -465,7 +503,7 @@ String s = String.valueOf(year);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, Calender.class);
-                Log.v("NEW INTENT","MainActivity.this, MainActivity.class");
+                Log.v("NEW INTENT", "MainActivity.this, MainActivity.class");
                 startActivity(myIntent);
             }
         });
@@ -473,7 +511,7 @@ String s = String.valueOf(year);
 //        Toast.makeText(MainActivity.this, "" + date,
 //                Toast.LENGTH_LONG).show();
 
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
         mDataSource.insertOnlyFirstTimeInTableSadhana();
         printNew();
@@ -482,19 +520,18 @@ String s = String.valueOf(year);
 //        mDataSource.dropTable();
 
 
-        if (firstTimeinMainActivity == ""){
-            Log.v("Insidee","Inside");
+        if (firstTimeinMainActivity == "") {
+            Log.v("Insidee", "Inside");
             checkUserDatabaseExistOrNot();
-        }
-        else {
+        } else {
 
         }
 
         print();
         printOnlyQuery();
         uncompleteDaysOfSadhna();
-        
-        
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -534,7 +571,7 @@ String s = String.valueOf(year);
             resett();
             print();
             return true;
-        }else if (id == R.id.full){
+        } else if (id == R.id.full) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -546,24 +583,24 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(100,date);
+                if (j == -1) {
+                    mDataSource.update_MA(100, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(100,date);
+                if (k == -1) {
+                    mDataSource.update_DA(100, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(100,date);
+                if (l == -1) {
+                    mDataSource.update_SB(100, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(100,date);
+                if (m == -1) {
+                    mDataSource.update_JP(100, date);
                 }
-                    mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.half){
+        } else if (id == R.id.half) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -575,24 +612,24 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(50,date);
+                if (j == -1) {
+                    mDataSource.update_MA(50, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(50,date);
+                if (k == -1) {
+                    mDataSource.update_DA(50, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(50,date);
+                if (l == -1) {
+                    mDataSource.update_SB(50, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(50,date);
+                if (m == -1) {
+                    mDataSource.update_JP(50, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.no){
+        } else if (id == R.id.no) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -604,24 +641,24 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(0,date);
+                if (j == -1) {
+                    mDataSource.update_MA(0, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(0,date);
+                if (k == -1) {
+                    mDataSource.update_DA(0, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(0,date);
+                if (l == -1) {
+                    mDataSource.update_SB(0, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(0,date);
+                if (m == -1) {
+                    mDataSource.update_JP(0, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.others){
+        } else if (id == R.id.others) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -633,24 +670,24 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(8,date);
+                if (j == -1) {
+                    mDataSource.update_MA(8, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(8,date);
+                if (k == -1) {
+                    mDataSource.update_DA(8, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(8,date);
+                if (l == -1) {
+                    mDataSource.update_SB(8, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(8,date);
+                if (m == -1) {
+                    mDataSource.update_JP(8, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.sick){
+        } else if (id == R.id.sick) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -662,24 +699,24 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(10,date);
+                if (j == -1) {
+                    mDataSource.update_MA(10, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(10,date);
+                if (k == -1) {
+                    mDataSource.update_DA(10, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(10,date);
+                if (l == -1) {
+                    mDataSource.update_SB(10, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(10,date);
+                if (m == -1) {
+                    mDataSource.update_JP(10, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.os){
+        } else if (id == R.id.os) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -691,19 +728,19 @@ String s = String.valueOf(year);
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(9,date);
+                if (j == -1) {
+                    mDataSource.update_MA(9, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(9,date);
+                if (k == -1) {
+                    mDataSource.update_DA(9, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(9,date);
+                if (l == -1) {
+                    mDataSource.update_SB(9, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(9,date);
+                if (m == -1) {
+                    mDataSource.update_JP(9, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -719,52 +756,49 @@ String s = String.valueOf(year);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-       if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_gallery) {
 
-            startActivity(new Intent(MainActivity.this,Calender.class));
+            startActivity(new Intent(MainActivity.this, LastMonth.class));
 
         } else if (id == R.id.nav_slideshow) {
             Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            Log.v("NEW INTENT","DataUpdate.this, MainActivity.class");
+            Log.v("NEW INTENT", "DataUpdate.this, MainActivity.class");
             startActivity(myIntent);
 
         } else if (id == R.id.nav_share) {
-            startActivity(new Intent(MainActivity.this,Recycler_view.class));
+            startActivity(new Intent(MainActivity.this, Recycler_view.class));
 
 
-        }else if (id == R.id.nav_upload) {
-           UploadDatatoFirebase();
-       }
-       else if (id == R.id.nav_summary) {
-            startActivity(new Intent(MainActivity.this,Summary.class));
+        } else if (id == R.id.nav_upload) {
+            UploadDatatoFirebase();
+        } else if (id == R.id.nav_summary) {
+            startActivity(new Intent(MainActivity.this, Summary.class));
+        } else if (id == R.id.nav_logout) {
+
+            if (isNetworkConnected()) {
+                SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
+                // Writing data to SharedPreferences
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("fima", "");
+                editor.putString("flag", "");
+                editor.putString("email", "");
+                editor.putString("convertedEmail", "");
+                editor.commit();
+                UploadDatatoFirebase();
+                firebaseAuth.signOut();
+            } else {
+                Toast.makeText(MainActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }
         }
-        else if (id == R.id.nav_logout) {
-
-           if (isNetworkConnected()){
-           SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
-           // Writing data to SharedPreferences
-           SharedPreferences.Editor editor = settings.edit();
-           editor.putString("fima", "");
-           editor.putString("flag", "");
-           editor.putString("email", "");
-           editor.putString("convertedEmail", "");
-           editor.commit();
-               UploadDatatoFirebase();
-            firebaseAuth.signOut();
-           }
-           else {
-               Toast.makeText(MainActivity.this,"No internet connection",Toast.LENGTH_SHORT).show();
-           }
-       }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
 
-    void checkForAutomaticDate(){
+    void checkForAutomaticDate() {
         boolean s = isTimeAutomatic(MainActivity.this);
-        Log.v("Setting",s+"");
+        Log.v("Setting", s + "");
         if (s == false) {
             Toast.makeText(MainActivity.this, "Select Automatic Date And Time", Toast.LENGTH_LONG).show();
             startActivityForResult(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS), 0);
@@ -775,7 +809,7 @@ String s = String.valueOf(year);
     @Override
     protected void onResume() {
         super.onResume();
-        checkForAutomaticDate();
+//        checkForAutomaticDate();
         Calendar calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
         month = calendar.get(Calendar.MONTH);
@@ -786,17 +820,17 @@ String s = String.valueOf(year);
         showCards();
     }
 
-    void removeCard(CardView c){
+    void removeCard(CardView c) {
         c.animate().scaleX(0).scaleY(0).start();
 
     }
 
-    void removeCard(ImageView i){
+    void removeCard(ImageView i) {
         i.animate().scaleX(0).scaleY(0).start();
 
     }
 
-    void waitForOneSec(final CardView c){
+    void waitForOneSec(final CardView c) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -805,7 +839,7 @@ String s = String.valueOf(year);
         }, 600);
     }
 
-    void waitForOneSec(final ImageView i){
+    void waitForOneSec(final ImageView i) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -814,10 +848,10 @@ String s = String.valueOf(year);
         }, 400);
     }
 
-    void print(){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+    void print() {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -829,16 +863,16 @@ String s = String.valueOf(year);
             int m = cursor.getInt(4);
             int n = cursor.getInt(5);
 
-            Log.v("MarksFROMRDATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("MarksFROMRDATAUPDATE : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
     }
 
-    void printNew(){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+    void printNew() {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "Month" + " | \t" + "Year" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "Month" + " | \t" + "Year" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getAllDataFromTableSadhna();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -852,20 +886,20 @@ String s = String.valueOf(year);
             int m = cursor.getInt(6);
             int n = cursor.getInt(7);
 
-            Log.v("printnew : "," | \t" + i + " | \t" + month + " | \t" + year + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("printnew : ", " | \t" + i + " | \t" + month + " | \t" + year + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
     }
 
 
-    void UploadDatatoFirebase(){
+    void UploadDatatoFirebase() {
         dialog.show();
         //TODO : insted of abhiramani3@gmail take value of convertedEmail from sharedPreference and replace
-        mUpload = FirebaseDatabase.getInstance().getReference().child("UserData").child(year+"").child(month+"").child(convertedEmail);
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        mUpload = FirebaseDatabase.getInstance().getReference().child("UserData").child(year + "").child(month + "").child(convertedEmail);
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -877,17 +911,17 @@ String s = String.valueOf(year);
             int m = cursor.getInt(6);
             int n = cursor.getInt(7);
 
-            mUpload.child(i+"").child("MA").setValue(j);
-            mUpload.child(i+"").child("DA").setValue(k);
-            mUpload.child(i+"").child("BG").setValue(l);
-            mUpload.child(i+"").child("JP").setValue(m);
+            mUpload.child(i + "").child("MA").setValue(j);
+            mUpload.child(i + "").child("DA").setValue(k);
+            mUpload.child(i + "").child("BG").setValue(l);
+            mUpload.child(i + "").child("JP").setValue(m);
 
 
-            Log.v("MarksFROM DATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("MarksFROM DATAUPDATE : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
 
-     DatabaseReference mUploadReport = FirebaseDatabase.getInstance().getReference().child("Report").child(convertedEmail);
+        DatabaseReference mUploadReport = FirebaseDatabase.getInstance().getReference().child("Report").child(convertedEmail);
 
 
         Cursor cursor2 = mDataSource.getDataForCurruntMonth();
@@ -901,14 +935,14 @@ String s = String.valueOf(year);
             int m = cursor2.getInt(6);
             int n = cursor2.getInt(7);
 
-            mUploadReport.child(reportTableId+"").child("MA").setValue(j);
-            mUploadReport.child(reportTableId+"").child("DA").setValue(k);
-            mUploadReport.child(reportTableId+"").child("BG").setValue(l);
-            mUploadReport.child(reportTableId+"").child("JP").setValue(m);
-            mUploadReport.child(reportTableId+"").child("Totle").setValue(n);
+            mUploadReport.child(reportTableId + "").child("MA").setValue(j);
+            mUploadReport.child(reportTableId + "").child("DA").setValue(k);
+            mUploadReport.child(reportTableId + "").child("BG").setValue(l);
+            mUploadReport.child(reportTableId + "").child("JP").setValue(m);
+            mUploadReport.child(reportTableId + "").child("Totle").setValue(n);
 
 
-            Log.v("MarksFROM DATAUPDATE : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("MarksFROM DATAUPDATE : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor2.moveToNext();
         }
 
@@ -916,12 +950,15 @@ String s = String.valueOf(year);
         dialog.dismiss();
     }
 
-    void printOnlyQuery(){
+    void printOnlyQuery() {
         int ii = 1;
-        totalMA=0;totleJP=0;totalDA=0;totleBG=0;
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        totalMA = 0;
+        totleJP = 0;
+        totalDA = 0;
+        totleBG = 0;
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -932,35 +969,35 @@ String s = String.valueOf(year);
             int m = cursor.getInt(6);
             int n = cursor.getInt(7);
 
-            Log.v("Test",j+"");
-            Log.v("Test",m+"");
-            Log.v("Test",k+"");
-            Log.v("Test",l+"");
-            Log.v("TblReporttt:",totalMA+"");
+            Log.v("Test", j + "");
+            Log.v("Test", m + "");
+            Log.v("Test", k + "");
+            Log.v("Test", l + "");
+            Log.v("TblReporttt:", totalMA + "");
 
             totalMA = totalMA + j;
             totleJP = totleJP + m;
             totalDA = totalDA + k;
             totleBG = totleBG + l;
 
-            if (j != -1 && k != -1 && l != -1 && m != -1){
-                up_IS(1,date);
-Log.v("hamkk","hmkk");
+            if (j != -1 && k != -1 && l != -1 && m != -1) {
+                up_IS(1, date);
+                Log.v("hamkk", "hmkk");
                 print();
 //                isupdated.setVisibility(View.VISIBLE);
 //                imageView.setVisibility(View.VISIBLE);
             }
 
-            Log.v("PrintOnly : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("PrintOnly : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
-            if (ii == date){
+            if (ii == date) {
                 break;
             }
             ii++;
         }
         Calendar calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
-        Log.v("TblReportt:",totalMA+"");
+        Log.v("TblReportt:", totalMA + "");
 
         totleBG = totleBG / date;
         totleJP = totleJP / date;
@@ -968,50 +1005,49 @@ Log.v("hamkk","hmkk");
         totalDA = totalDA / date;
         int totle = (totleBG + totalMA + totalDA + totleJP) / 4;
 
-        Log.v("TblReport:",reportTableId+"");
-        Log.v("TblReport:",totalMA+"");
-        Log.v("TblReport:",totalDA+"");
-        Log.v("TblReport:",totleBG+"");
-        Log.v("TblReport:",totleJP+"");
-        Log.v("TblReport:",totle+"");
+        Log.v("TblReport:", reportTableId + "");
+        Log.v("TblReport:", totalMA + "");
+        Log.v("TblReport:", totalDA + "");
+        Log.v("TblReport:", totleBG + "");
+        Log.v("TblReport:", totleJP + "");
+        Log.v("TblReport:", totle + "");
 
-        updateReportTable(reportTableId,totalMA,totalDA,totleBG,totleJP,totle);
-        
-        Log.v("Report",totalDA+"");
-        Log.v("Report",totalMA+"");
-        Log.v("Report",totleBG+"");
-        Log.v("Report",totleJP+"");
+        updateReportTable(reportTableId, totalMA, totalDA, totleBG, totleJP, totle);
+
+        Log.v("Report", totalDA + "");
+        Log.v("Report", totalMA + "");
+        Log.v("Report", totleBG + "");
+        Log.v("Report", totleJP + "");
 
         mDataSource.close();
     }
 
-    private void updateReportTable(int id,int ma,int da,int sb,int jp,int totle) {
-        Log.v("idForReport",id+"");
+    private void updateReportTable(int id, int ma, int da, int sb, int jp, int totle) {
+        Log.v("idForReport", id + "");
 
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.insertIntoTableReport(id,ma,da,sb,jp,totle);
+        mDataSource.insertIntoTableReport(id, ma, da, sb, jp, totle);
         mDataSource.close();
     }
 
     private int generateIdForTableReport() {
-        if (month > 9){
+        if (month > 9) {
             year = year * 100;
-        }
-        else {
+        } else {
             year = year * 10;
         }
         int i = year + month;
-        Log.v("idForReport",i+"");
+        Log.v("idForReport", i + "");
 
         Toast.makeText(MainActivity.this, "SpecialId" + i, Toast.LENGTH_LONG).show();
         return i;
     }
 
-    void showCards(){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+    void showCards() {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -1023,72 +1059,66 @@ Log.v("hamkk","hmkk");
             int n = cursor.getInt(7);
 
 
-            if (n == 1){
-                Log.v("Hmm","Hmm");
+            if (n == 1) {
+                Log.v("Hmm", "Hmm");
                 isupdated.setVisibility(View.VISIBLE);
             }
 
-            if (j != -1 && k != -1 && l != -1 && m != -1){
-                up_IS(1,date);
+            if (j != -1 && k != -1 && l != -1 && m != -1) {
+                up_IS(1, date);
                 isupdated.setVisibility(View.VISIBLE);
                 print();
-            }
-            else {
+            } else {
                 isupdated.setVisibility(View.GONE);
             }
 
-            if (j == -1){
+            if (j == -1) {
                 ma_Card.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 ma_Card.setVisibility(View.GONE);
             }
 
-            if (k == -1){
+            if (k == -1) {
                 da_Card.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 da_Card.setVisibility(View.GONE);
             }
 
-            if (l == -1){
+            if (l == -1) {
                 sb_Card.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 sb_Card.setVisibility(View.GONE);
             }
 
-            if (m == -1){
+            if (m == -1) {
                 japa_card.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 japa_card.setVisibility(View.GONE);
             }
 
             readTime();
-            Log.v("between","From : "+getMA_FROM_Hour(maFrom) + " : " + getMA_FROM_Minuit(maFrom));
-            Log.v("between","Now  : "+hour + " : " + minuit);
-            Log.v("between","To   : "+getMA_TO_Hour(maTo) + " : " + getMA_TO_Minuit(maTo));
+            Log.v("between", "From : " + getMA_FROM_Hour(maFrom) + " : " + getMA_FROM_Minuit(maFrom));
+            Log.v("between", "Now  : " + hour + " : " + minuit);
+            Log.v("between", "To   : " + getMA_TO_Hour(maTo) + " : " + getMA_TO_Minuit(maTo));
 
-            if (j==-1){
-                if (isInBetweenOrNot(getMA_FROM_Hour(maFrom),getMA_FROM_Minuit(maFrom),hour,minuit,getMA_TO_Hour(maTo),getMA_TO_Minuit(maTo))){
-                    Log.v("between","Working");
+            if (j == -1) {
+                if (isInBetweenOrNot(getMA_FROM_Hour(maFrom), getMA_FROM_Minuit(maFrom), hour, minuit, getMA_TO_Hour(maTo), getMA_TO_Minuit(maTo))) {
+                    Log.v("between", "Working");
                     punch_ma.animate().scaleX(0).scaleY(0).start();
                     punch_ma.setVisibility(View.VISIBLE);
                     punch_ma.setVisibility(View.VISIBLE);
                     punch_ma.animate().scaleX(1).scaleY(1).start();
-                }
-                else {
-                    Log.v("between","Not Workning");
+                } else {
+                    Log.v("between", "Not Workning");
                     punch_ma.setVisibility(View.GONE);
                 }
             }
 
 
-            if (k==-1) {
-                Log.v("betweenDA","From : "+getDA_FROM_Hour(daFrom) + " : " + getDA_FROM_Minuit(daFrom));
-                Log.v("betweenDA","Now  : "+hour + " : " + minuit);
-                Log.v("betweenDA","To   : "+getDA_TO_Hour(daTo) + " : " + getDA_TO_Minuit(daTo));
+            if (k == -1) {
+                Log.v("betweenDA", "From : " + getDA_FROM_Hour(daFrom) + " : " + getDA_FROM_Minuit(daFrom));
+                Log.v("betweenDA", "Now  : " + hour + " : " + minuit);
+                Log.v("betweenDA", "To   : " + getDA_TO_Hour(daTo) + " : " + getDA_TO_Minuit(daTo));
                 Log.v("betweenDAInside", "Working");
 
                 if (isInBetweenOrNot(getDA_FROM_Hour(daFrom), getDA_FROM_Minuit(daFrom), hour, minuit, getDA_TO_Hour(daTo), getDA_TO_Minuit(daTo))) {
@@ -1104,7 +1134,7 @@ Log.v("hamkk","hmkk");
                 }
             }
 
-            if (l==-1) {
+            if (l == -1) {
 
                 if (isInBetweenOrNot(getSB_FROM_Hour(sbFrom), getSB_FROM_Minuit(sbFrom), hour, minuit, getSB_TO_Hour(sbTo), getSB_TO_Minuit(sbTo))) {
                     Log.v("between", "Working");
@@ -1119,7 +1149,7 @@ Log.v("hamkk","hmkk");
             }
 
 
-            Log.v("MarksFromSHowCard : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("MarksFromSHowCard : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
@@ -1127,45 +1157,49 @@ Log.v("hamkk","hmkk");
         readTime();
     }
 
-    void up_MA(int value, int id){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+    void up_MA(int value, int id) {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_MA(value,id);
+        mDataSource.update_MA(value, id);
         mDataSource.close();
 
     }
-    void up_DA(int value, int id){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+
+    void up_DA(int value, int id) {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_DA(value,id);
-        mDataSource.close();
-    }
-    void up_SB(int value, int id){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_SB(value,id);
-        mDataSource.close();
-    }
-    void up_JP(int value, int id){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_JP(value,id);
-        mDataSource.close();
-    }
-    void up_IS(int value, int id){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_IS(value,id);
+        mDataSource.update_DA(value, id);
         mDataSource.close();
     }
 
-    public void resett(){
+    void up_SB(int value, int id) {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_JP(-1,date);
-        mDataSource.update_MA(-1,date);
-        mDataSource.update_SB(-1,date);
-        mDataSource.update_DA(-1,date);
-        mDataSource.update_IS(-1,date);
+        mDataSource.update_SB(value, id);
+        mDataSource.close();
+    }
+
+    void up_JP(int value, int id) {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.update_JP(value, id);
+        mDataSource.close();
+    }
+
+    void up_IS(int value, int id) {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.update_IS(value, id);
+        mDataSource.close();
+    }
+
+    public void resett() {
+        mDataSource.open();
+        mDataSource.update_JP(-1, date);
+        mDataSource.update_MA(-1, date);
+        mDataSource.update_SB(-1, date);
+        mDataSource.update_DA(-1, date);
+        mDataSource.update_IS(-1, date);
         mDataSource.close();
 
         ma_Card.setVisibility(View.VISIBLE);
@@ -1180,7 +1214,7 @@ Log.v("hamkk","hmkk");
         print();
     }
 
-    void hideAllCards(){
+    void hideAllCards() {
         ma_Card.setVisibility(View.GONE);
         ma_Card.animate().scaleX(0).scaleY(0).start();
         da_Card.setVisibility(View.GONE);
@@ -1193,10 +1227,10 @@ Log.v("hamkk","hmkk");
     }
 
 
-    void uncompleteDaysOfSadhna(){
-        mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+    void uncompleteDaysOfSadhna() {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
-        Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -1211,82 +1245,81 @@ Log.v("hamkk","hmkk");
             fromSQL[i] = n;
 
 
-            Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         int count = 0;
-        for (int i = 1 ; i < date;i++){
-            if (fromSQL[i] == -1){
+        for (int i = 1; i < date; i++) {
+            if (fromSQL[i] == -1) {
                 count++;
             }
         }
-        Log.v("Count",count+"");
-        if (count == 1){
+        Log.v("Count", count + "");
+        if (count == 1) {
             img.setImageResource(R.drawable.one);
-        }else if (count == 2){
+        } else if (count == 2) {
             img.setImageResource(R.drawable.two);
-        }else if (count == 3){
+        } else if (count == 3) {
             img.setImageResource(R.drawable.three);
-        }else if (count == 4){
+        } else if (count == 4) {
             img.setImageResource(R.drawable.four);
-        }else if (count == 5){
+        } else if (count == 5) {
             img.setImageResource(R.drawable.five);
-        }else if (count == 6){
+        } else if (count == 6) {
             img.setImageResource(R.drawable.six);
-        }else if (count == 7){
+        } else if (count == 7) {
             img.setImageResource(R.drawable.seven);
-        }else if (count == 8){
+        } else if (count == 8) {
             img.setImageResource(R.drawable.eight);
-        }else if (count == 9){
+        } else if (count == 9) {
             img.setImageResource(R.drawable.nine);
-        }else if (count == 10){
+        } else if (count == 10) {
             img.setImageResource(R.drawable.ten);
-        }else if (count == 11){
+        } else if (count == 11) {
             img.setImageResource(R.drawable.eleven);
-        }else if (count == 12){
+        } else if (count == 12) {
             img.setImageResource(R.drawable.twelve);
-        }else if (count == 13){
+        } else if (count == 13) {
             img.setImageResource(R.drawable.thirteen);
-        }else if (count == 14){
+        } else if (count == 14) {
             img.setImageResource(R.drawable.fourteen);
-        }else if (count == 15){
+        } else if (count == 15) {
             img.setImageResource(R.drawable.fifteen);
-        }else if (count == 16){
+        } else if (count == 16) {
             img.setImageResource(R.drawable.sixteen);
-        }else if (count == 17){
+        } else if (count == 17) {
             img.setImageResource(R.drawable.seventeen);
-        }else if (count == 18){
+        } else if (count == 18) {
             img.setImageResource(R.drawable.eighteen);
-        }else if (count == 19){
+        } else if (count == 19) {
             img.setImageResource(R.drawable.nineteen);
-        }else if (count == 20){
+        } else if (count == 20) {
             img.setImageResource(R.drawable.twenty);
-        }else if (count == 21){
+        } else if (count == 21) {
             img.setImageResource(R.drawable.twentyone);
-        }else if (count == 22){
+        } else if (count == 22) {
             img.setImageResource(R.drawable.ttwo);
-        }else if (count == 23){
+        } else if (count == 23) {
             img.setImageResource(R.drawable.tthree);
-        }else if (count == 24){
+        } else if (count == 24) {
             img.setImageResource(R.drawable.tfour);
-        }else if (count == 25){
+        } else if (count == 25) {
             img.setImageResource(R.drawable.tfive);
-        }else if (count == 26){
+        } else if (count == 26) {
             img.setImageResource(R.drawable.tsix);
-        }else if (count == 27){
+        } else if (count == 27) {
             img.setImageResource(R.drawable.tseven);
-        }else if (count == 28){
+        } else if (count == 28) {
             img.setImageResource(R.drawable.teight);
-        }else if (count == 29){
+        } else if (count == 29) {
             img.setImageResource(R.drawable.tnine);
-        }else if (count == 30){
+        } else if (count == 30) {
             img.setImageResource(R.drawable.thirty);
-        }
-        else {
+        } else {
             img.setImageResource(R.drawable.alll);
         }
 
-        Log.v("COunt is ","Count is :" + count);
+        Log.v("COunt is ", "Count is :" + count);
 
         mDataSource.close();
     }
@@ -1297,72 +1330,70 @@ Log.v("hamkk","hmkk");
 //        startActivity(myIntent);
     }
 
-    int getMA_TO_Hour(String s){
-        if (s == "xxx")
-        {
+    int getMA_TO_Hour(String s) {
+        if (s == "xxx") {
 //            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
 //            startActivity(myIntent);
             return 0;
-        }
-        else {
+        } else {
             String[] parts = s.split(":");
             return Integer.parseInt(parts[0]);
         }
     }
 
-    int getMA_FROM_Hour(String s){
+    int getMA_FROM_Hour(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[0]);
     }
 
-    int getDA_TO_Hour(String s){
+    int getDA_TO_Hour(String s) {
 
         String[] parts = s.split(":");
         return Integer.parseInt(parts[0]);
     }
 
-    int getDA_FROM_Hour(String s){
+    int getDA_FROM_Hour(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[0]);
     }
 
-    int getSB_TO_Hour(String s){
+    int getSB_TO_Hour(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[0]);
     }
 
-    int getSB_FROM_Hour(String s){
+    int getSB_FROM_Hour(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[0]);
     }
 
-    int getMA_TO_Minuit(String s){
+    int getMA_TO_Minuit(String s) {
 
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
 
-    int getMA_FROM_Minuit(String s){
+    int getMA_FROM_Minuit(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
 
-    int getDA_TO_Minuit(String s){
+    int getDA_TO_Minuit(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
 
-    int getDA_FROM_Minuit(String s){
+    int getDA_FROM_Minuit(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
 
-    int getSB_TO_Minuit(String s){
+    int getSB_TO_Minuit(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
 
-    int getSB_FROM_Minuit(String s){
+    int getSB_FROM_Minuit(String s) {
         String[] parts = s.split(":");
         return Integer.parseInt(parts[1]);
     }
@@ -1376,57 +1407,51 @@ Log.v("hamkk","hmkk");
         }
     }
 
-    void readTime(){
+    void readTime() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        maFrom = preferences.getString("Ma_From","00:00");
-        maTo = preferences.getString("Ma_To","00:00");
-        daFrom = preferences.getString("Da_From","00:00");
-        daTo = preferences.getString("Da_To","00:00");
-        sbFrom = preferences.getString("Sb_From","00:00");
-        sbTo = preferences.getString("Sb_To","00:00");
+        maFrom = preferences.getString("Ma_From", "00:00");
+        maTo = preferences.getString("Ma_To", "00:00");
+        daFrom = preferences.getString("Da_From", "00:00");
+        daTo = preferences.getString("Da_To", "00:00");
+        sbFrom = preferences.getString("Sb_From", "00:00");
+        sbTo = preferences.getString("Sb_To", "00:00");
 
 
-        Log.v("Timings",maFrom);
-        Log.v("Timings",maTo);
-        Log.v("Timings",daFrom);
-        Log.v("Timings",daTo);
-        Log.v("Timings",sbFrom);
-        Log.v("Timings",sbTo);
+        Log.v("Timings", maFrom);
+        Log.v("Timings", maTo);
+        Log.v("Timings", daFrom);
+        Log.v("Timings", daTo);
+        Log.v("Timings", sbFrom);
+        Log.v("Timings", sbTo);
     }
 
 
-    boolean isInBetweenOrNot(int a,int b,int c,int d,int e,int f){
-        if ((c > e) || (c < a)){
+    boolean isInBetweenOrNot(int a, int b, int c, int d, int e, int f) {
+        if ((c > e) || (c < a)) {
             return false;
-        }
-        else if ((c > a) && (c <e)){
-            Log.v("Function","1");
+        } else if ((c > a) && (c < e)) {
+            Log.v("Function", "1");
 
             return true;
-        }
-        else if (c == a){
-            if ((b <= d) && (d <= f)){
-                Log.v("Function","2");
+        } else if (c == a) {
+            if ((b <= d) && (d <= f)) {
+                Log.v("Function", "2");
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        else if (c == e){
-            if (f >= d){
-                Log.v("Function","3");
+        } else if (c == e) {
+            if (f >= d) {
+                Log.v("Function", "3");
                 return true;
 
-            }
-            else{
-                Log.v("Function","4");
+            } else {
+                Log.v("Function", "4");
 
                 return false;
             }
-        }
-        else{
-            Log.v("Function","5");
+        } else {
+            Log.v("Function", "5");
 
             return false;
         }
@@ -1437,7 +1462,7 @@ Log.v("hamkk","hmkk");
         waitForOneSec(punch_da);
         removeCard(da_Card);
         waitForOneSec(da_Card);
-        up_DA(3,date);//TODO : calculate point based on time for all three cards
+        up_DA(3, date);//TODO : calculate point based on time for all three cards
     }
 
     public void punch_ma_onclick(View view) {
@@ -1445,7 +1470,7 @@ Log.v("hamkk","hmkk");
         waitForOneSec(punch_ma);
         removeCard(ma_Card);
         waitForOneSec(ma_Card);
-        up_MA(100,date);//TODO : calculate point based on time for all three cards
+        up_MA(100, date);//TODO : calculate point based on time for all three cards
     }
 
     public void punch_sb_onclick(View view) {
@@ -1453,7 +1478,7 @@ Log.v("hamkk","hmkk");
         waitForOneSec(punch_sb);
         removeCard(sb_Card);
         waitForOneSec(sb_Card);
-        up_SB(3,date);//TODO : calculate point based on time for all three cards
+        up_SB(3, date);//TODO : calculate point based on time for all three cards
     }
 
     public void table(View view) {
@@ -1499,8 +1524,7 @@ Log.v("hamkk","hmkk");
                     if (Ibg != -1 && Ida != -1 && Ijp != -1 && Ima != -1) {
                         up_IS(1, i);
                         print();
-                    }
-                    else {
+                    } else {
                         up_IS(-1, i);
                     }
                     mDataSource.close();
@@ -1551,9 +1575,9 @@ Log.v("hamkk","hmkk");
                     int Ikey = Integer.parseInt(key);
 
 
-                    mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
+                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
                     mDataSource.open();
-                    mDataSource.insertIntoTableReport(Ikey,Ima,Ida,Isb,Ijp,Itotle);
+                    mDataSource.insertIntoTableReport(Ikey, Ima, Ida, Isb, Ijp, Itotle);
                     mDataSource.close();
                 }
 
@@ -1566,14 +1590,14 @@ Log.v("hamkk","hmkk");
         });
     }
 
-    void checkUserDatabaseExistOrNot(){
+    void checkUserDatabaseExistOrNot() {
 
         dialog.show();
         mcheckForExistence.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("mmmm",dataSnapshot+"");
-                if (dataSnapshot.hasChild(convertedEmail)){
+                Log.v("mmmm", dataSnapshot + "");
+                if (dataSnapshot.hasChild(convertedEmail)) {
                     getValueFromFirebase();
                     uncompleteDaysOfSadhna();
                     showCards();
@@ -1584,8 +1608,7 @@ Log.v("hamkk","hmkk");
                     firstTimeinMainActivity = "yes";
                     editor.commit();
 
-                }
-                else {
+                } else {
                 }
             }
 
@@ -1596,9 +1619,10 @@ Log.v("hamkk","hmkk");
         });
         dialog.dismiss();
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        Log.v("Testing","12");
+        Log.v("Testing", "12");
 
         return cm.getActiveNetworkInfo() != null;
     }

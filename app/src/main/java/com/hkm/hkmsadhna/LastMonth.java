@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Calender extends AppCompatActivity {
-
+public class LastMonth extends AppCompatActivity {
     String DB_NAME = "new.db";
     // hare krishna
     TextView[] dateCal = new TextView[43];
@@ -41,10 +40,10 @@ public class Calender extends AppCompatActivity {
 
     ImageView fab, fabAll, fabExcuse, img, fabCancle, fabSick, fabOS, fabOthor;
     LinearLayout lastLayout;
-    int monthStartsFrom, totalDaysInMonth, month, date, day, gap, year, actualLimit;
+    int monthStartsFrom, totalDaysInLastMonth, month, date, day, gap, year, actualLimit;
     boolean longClickEnable;
     Spinner spinner;
-    SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+    SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
     ArrayList<Integer> arl = new ArrayList<Integer>();
 
     TextView mdate;
@@ -55,7 +54,7 @@ public class Calender extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
+        setContentView(R.layout.activity_last_month);
         fab = (ImageView) findViewById(R.id.fab);
         Window window = this.getWindow();
 //        String str = spinner.getSelectedItem().toString();
@@ -64,7 +63,7 @@ public class Calender extends AppCompatActivity {
 //        else
 //            Toast.makeText(getBaseContext(),str+" NOT", Toast.LENGTH_SHORT).show();
 
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.insertOnlyFirstTimeInTableSadhana();
         mDataSource.getDataForCurruntMonth();
@@ -245,17 +244,46 @@ public class Calender extends AppCompatActivity {
         date = calendar.get(Calendar.DATE);
         day = calendar.get(Calendar.DAY_OF_WEEK);
         mdate.setText(date + " - " + MonArray[month] + " - " + year);
-        GregorianCalendar mycal = new GregorianCalendar(year, month, date);
-        totalDaysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        Log.v("Month",month+"");
+
+        if (month == 1){
+            month = 12;
+            year--;
+        }
+        else {
+            month--;
+        }
+
+        GregorianCalendar Lastmycal = new GregorianCalendar(year, month, date);
+        totalDaysInLastMonth = Lastmycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+//        GregorianCalendar mycal = new GregorianCalendar(year, month, date);
+//        totalDaysInLastMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
         monthStartsFrom = dayStart(date, day);
-        gap = monthStartsFrom - 1;
-        actualLimit = totalDaysInMonth + gap;
+
+        int momonthStartsFromForLast = MonthStartsFromFunc(monthStartsFrom);
+
+        gap = momonthStartsFromForLast - 1;
+        actualLimit = totalDaysInLastMonth + gap;
 
 
-        Toast.makeText(getBaseContext(), "Total : " + totalDaysInMonth + "Starts From : " + monthStartsFrom, Toast.LENGTH_SHORT).show();
 
-        setDate(totalDaysInMonth, gap);
-        setImage(totalDaysInMonth, gap, date);
+        Log.v("Cal Month",month+"");
+        Log.v("Cal Year",year+"");
+        Log.v("Cal Date",date+"");
+        Log.v("Cal Day",day+"");
+        Log.v("Cal TotalDaysInM",totalDaysInLastMonth+"");
+//        Log.v("Cal S",s+"");
+        Log.v("Cal MonthStarts From",momonthStartsFromForLast+"");
+        Log.v("Cal Gap",gap+"");
+        Log.v("Cal Actual Limit",actualLimit+"");
+
+
+        Toast.makeText(getBaseContext(), "Total : " + totalDaysInLastMonth + "Starts From : " + monthStartsFrom, Toast.LENGTH_SHORT).show();
+
+        setDate(totalDaysInLastMonth, gap);
+        setImage(totalDaysInLastMonth, gap, date);
 
 
         lotRel[1].setOnClickListener(new View.OnClickListener() {
@@ -523,8 +551,8 @@ public class Calender extends AppCompatActivity {
                     up_IS(1, number);
                 }
                 fabDisappear();
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
 
             }
         });
@@ -540,8 +568,8 @@ public class Calender extends AppCompatActivity {
                     up_IS(1, number);
                 }
                 ReasonFabDisappear();
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
 
             }
         });
@@ -557,8 +585,8 @@ public class Calender extends AppCompatActivity {
                     up_IS(1, number);
                 }
                 ReasonFabDisappear();
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
 
             }
         });
@@ -574,8 +602,8 @@ public class Calender extends AppCompatActivity {
                     up_IS(1, number);
                 }
                 ReasonFabDisappear();
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
 
             }
         });
@@ -592,21 +620,21 @@ public class Calender extends AppCompatActivity {
         fabCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
                 ReasonFabDisappear();
             }
         });
 
-        Toast.makeText(Calender.this, "" + date,
+        Toast.makeText(LastMonth.this, "" + date,
                 Toast.LENGTH_LONG).show();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.v("ONd", "fab");
-                setDate(totalDaysInMonth, gap);
-                setImage(totalDaysInMonth, gap, date);
+                setDate(totalDaysInLastMonth, gap);
+                setImage(totalDaysInLastMonth, gap, date);
                 fabDisappear();
             }
         });
@@ -914,8 +942,8 @@ public class Calender extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDate(totalDaysInMonth, gap);
-        setImage(totalDaysInMonth, gap, date);
+        setDate(totalDaysInLastMonth, gap);
+        setImage(totalDaysInLastMonth, gap, date);
 
     }
 
@@ -962,7 +990,7 @@ public class Calender extends AppCompatActivity {
     void setImage(int totalDaysInMonth, int gap, int date) {
 
 
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
@@ -1040,9 +1068,9 @@ public class Calender extends AppCompatActivity {
                     addToArray(i - gap);
                 }
             } else {
-                Intent myIntent = new Intent(Calender.this, EachDay.class);
+                Intent myIntent = new Intent(LastMonth.this, EachDay.class);
                 myIntent.putExtra("date", (i - gap));
-                Log.v("NEW INTENT", "((Calender.this, eachDay.class)");
+                Log.v("NEW INTENT", "((LastMonth.this, eachDay.class)");
 
                 startActivity(myIntent);
 
@@ -1188,38 +1216,57 @@ public class Calender extends AppCompatActivity {
     }
 
     void up_MA(int value, int id) {
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_MA(value, id);
         mDataSource.close();
     }
 
     void up_DA(int value, int id) {
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_DA(value, id);
         mDataSource.close();
     }
 
     void up_SB(int value, int id) {
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_SB(value, id);
         mDataSource.close();
     }
 
     void up_JP(int value, int id) {
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_JP(value, id);
         mDataSource.close();
     }
 
     void up_IS(int value, int id) {
-        SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_IS(value, id);
         mDataSource.close();
+    }
+
+    int MonthStartsFromFunc(int monthStartsFromm){
+        int temp = monthStartsFromm;
+
+        Log.v("TestingInside",temp+"");
+
+        for (int i =totalDaysInLastMonth ; i > 0 ; i--){
+
+            if (temp == 1){
+                temp = 7;
+            }
+            else {
+                temp--;
+            }
+            Log.v("TestingInsideTemp",temp+"");
+
+        }
+        return temp;
     }
 
     public void nav_back(View view) {

@@ -36,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-ProgressBar progressBar;
+    ProgressBar progressBar;
     private static final int RC_SIGN_IN = 2;
     SignInButton signInButton;
     FirebaseAuth mAuth;
@@ -53,21 +53,20 @@ ProgressBar progressBar;
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        Log.v("Testing","1");
+        Log.v("Testing", "1");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.v("Testing","2");
+        Log.v("Testing", "2");
         dialog = new ProgressDialog(Login.this);
         dialog.setMessage("Please wait");
 
-        if (isNetworkConnected()){
+        if (isNetworkConnected()) {
             Toast.makeText(Login.this, "Connection", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             Toast.makeText(Login.this, "No Connection", Toast.LENGTH_LONG).show();
         }
 
@@ -75,69 +74,67 @@ ProgressBar progressBar;
         SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
         value = settings.getString("flag", "");
 
-        signInButton = (SignInButton)findViewById(R.id.sign_in_button);
+        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                Log.v("Testing","3");
+                Log.v("Testing", "3");
 
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Log.v("Testing","4");
+                    Log.v("Testing", "4");
 
                     if (value.equals("yes")) {
-                        Log.v("Testing","5");
+                        Log.v("Testing", "5");
 
                         startActivity(new Intent(Login.this, MainActivity.class));
                     } else {
-                        Log.v("Testing","6");
+                        Log.v("Testing", "6");
 
                         String email = firebaseAuth.getCurrentUser().getEmail();
-                    SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
-                    // Writing data to SharedPreferences
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("email", email);
+                        SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
+                        // Writing data to SharedPreferences
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString("email", email);
                         ss = ConvertEmail(email);
-                        editor.putString("convertedEmail",ss);
+                        editor.putString("convertedEmail", ss);
                         editor.commit();
 
 
-                    myRef = FirebaseDatabase.getInstance().getReference().child("Permission");
+                        myRef = FirebaseDatabase.getInstance().getReference().child("Permission");
 
-                    ValueEventListener postListener1 = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // Get Post object and use the values to update the UI
+                        ValueEventListener postListener1 = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Get Post object and use the values to update the UI
 
-                            if (dataSnapshot.hasChild(ss)) {
-                                SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
-                                // Writing data to SharedPreferences
-                                SharedPreferences.Editor editor = settings.edit();
-                                editor.putString("flag", "yes");
-                                editor.commit();
-                                dialog.dismiss();
-                                Toast.makeText(Login.this, "Child extst", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(Login.this, MainActivity.class));
+                                if (dataSnapshot.hasChild(ss)) {
+                                    SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
+                                    // Writing data to SharedPreferences
+                                    SharedPreferences.Editor editor = settings.edit();
+                                    editor.putString("flag", "yes");
+                                    editor.commit();
+                                    dialog.dismiss();
+                                    Toast.makeText(Login.this, "Child extst", Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(Login.this, MainActivity.class));
 
-                            } else {
-                                Toast.makeText(Login.this, "Please contact the admin for access", Toast.LENGTH_LONG).show();
-                                dialog.dismiss();
+                                } else {
+                                    Toast.makeText(Login.this, "Please contact the admin for access", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    };
-                    myRef.addValueEventListener(postListener1);
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        };
+                        myRef.addValueEventListener(postListener1);
 
 
-                }
-            }
-
-                else{
-                    Log.v("Testing","7");
+                    }
+                } else {
+                    Log.v("Testing", "7");
 
                 }
             }
@@ -147,14 +144,14 @@ ProgressBar progressBar;
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        Log.v("Testing","8");
+        Log.v("Testing", "8");
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(Login.this,"Hello",Toast.LENGTH_SHORT).show();
-                        Log.v("Testing","9");
+                        Toast.makeText(Login.this, "Hello", Toast.LENGTH_SHORT).show();
+                        Log.v("Testing", "9");
 
                     }
                 })
@@ -164,18 +161,18 @@ ProgressBar progressBar;
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("Testing","10");
-                if (isNetworkConnected()){
-                signIn();}
-                else {
+                Log.v("Testing", "10");
+                if (isNetworkConnected()) {
+                    signIn();
+                } else {
 //                    Snackbar snackbar = Snackbar
 //                            .make(null, "No internet connection", Snackbar.LENGTH_LONG);
 //                    snackbar.show();
-                    Toast.makeText(Login.this,"No internet connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "No internet connection", Toast.LENGTH_SHORT).show();
 
 
                 }
-                Log.v("Testing","11");
+                Log.v("Testing", "11");
 
             }
         });
@@ -184,7 +181,7 @@ ProgressBar progressBar;
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        Log.v("Testing","12");
+        Log.v("Testing", "12");
 
         return cm.getActiveNetworkInfo() != null;
     }
@@ -193,13 +190,13 @@ ProgressBar progressBar;
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        Log.v("Testing","13");
+        Log.v("Testing", "13");
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v("Testing","14");
+        Log.v("Testing", "14");
         dialog.show();
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -207,15 +204,16 @@ ProgressBar progressBar;
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.v("Testing","15");
+            Log.v("Testing", "15");
 
-            if (result.isSuccess()) {        Log.v("Testing","16");
+            if (result.isSuccess()) {
+                Log.v("Testing", "16");
 
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Toast.makeText(Login.this,"Somwthing went wrong",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Somwthing went wrong", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
 
             }
@@ -223,22 +221,24 @@ ProgressBar progressBar;
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        Log.v("Testing","17");
+        Log.v("Testing", "17");
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.v("Testing","18");
+                        Log.v("Testing", "18");
 
-                        if (task.isSuccessful()) {        Log.v("Testing","19");
+                        if (task.isSuccessful()) {
+                            Log.v("Testing", "19");
 
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 //                            updateUI(user);
-                        } else {        Log.v("Testing","20");
+                        } else {
+                            Log.v("Testing", "20");
 
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -252,15 +252,14 @@ ProgressBar progressBar;
                 });
     }
 
-    String ConvertEmail(String s){
+    String ConvertEmail(String s) {
         String newString = "";
-        for (int i = 0;i < s.length();i++){
-            if (s.charAt(i) == '.' && s.charAt(i+1) == 'c' && s.charAt(i+2) == 'o' && s.charAt(i+3) == 'm'){
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '.' && s.charAt(i + 1) == 'c' && s.charAt(i + 2) == 'o' && s.charAt(i + 3) == 'm') {
                 break;
-            }
-            else{
+            } else {
                 newString = newString + s.charAt(i);
-                Log.v("Email",newString);
+                Log.v("Email", newString);
             }
         }
         return newString;

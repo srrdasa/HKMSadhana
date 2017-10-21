@@ -30,14 +30,14 @@ public class EachDay extends AppCompatActivity {
     int[] fromSQL = new int[32];
 
     int date;
-    LinearLayout ma_f,sb_f,da_f,ma_b;
-    Switch ma_Switch,da_Switch,sb_Switch;
-    TextView title_ma,title_sb,title_da,title_japa,just;
-    CardView ma_Card,sb_Card,da_Card,japa_card;
-    ImageView ma_f_full,ma_f_partial,ma_f_no,ma_b_sick,ma_b_os,ma_b_other,
-            sb_f_no,sb_f_full,sb_f_partial,sb_b_os,sb_b_sick,sb_b_other,
-            da_f_full,da_f_partial,da_f_no,da_b_os,da_b_sick,da_b_other,
-            japa_one,japa_two,japa_three,japa_four,japa_five,
+    LinearLayout ma_f, sb_f, da_f, ma_b;
+    Switch ma_Switch, da_Switch, sb_Switch;
+    TextView title_ma, title_sb, title_da, title_japa, just;
+    CardView ma_Card, sb_Card, da_Card, japa_card;
+    ImageView ma_f_full, ma_f_partial, ma_f_no, ma_b_sick, ma_b_os, ma_b_other,
+            sb_f_no, sb_f_full, sb_f_partial, sb_b_os, sb_b_sick, sb_b_other,
+            da_f_full, da_f_partial, da_f_no, da_b_os, da_b_sick, da_b_other,
+            japa_one, japa_two, japa_three, japa_four, japa_five,
             imageView;
     static SQLiteDatabase mDatabase;
     public MarksHelper mMarksHelper;
@@ -50,32 +50,31 @@ public class EachDay extends AppCompatActivity {
 
         Intent mIntent = getIntent();
         date = mIntent.getIntExtra("date", 0);
-        imageView = (ImageView)findViewById(R.id.isupdatedd);
+        imageView = (ImageView) findViewById(R.id.isupdatedd);
 
-        Log.v("Bundle :",date+"");
+        Log.v("Bundle :", date + "");
 
 
-
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         print();
         printOnlyQuery();
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
-        ma_Card = (CardView)findViewById(R.id.ma_card_view);
-        sb_Card = (CardView)findViewById(R.id.sb_card_view);
-        da_Card = (CardView)findViewById(R.id.da_card_view);
-        japa_card = (CardView)findViewById(R.id.japa_card_view);
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        ma_Card = (CardView) findViewById(R.id.ma_card_view);
+        sb_Card = (CardView) findViewById(R.id.sb_card_view);
+        da_Card = (CardView) findViewById(R.id.da_card_view);
+        japa_card = (CardView) findViewById(R.id.japa_card_view);
 
 
         ma_Switch = (Switch) findViewById(R.id.switch1);
         da_Switch = (Switch) findViewById(R.id.switch2);
         sb_Switch = (Switch) findViewById(R.id.switch3);
 
-        title_ma = (TextView)findViewById(R.id.title_ma);
-        title_sb = (TextView)findViewById(R.id.title_sb);
-        title_da = (TextView)findViewById(R.id.title_da);
+        title_ma = (TextView) findViewById(R.id.title_ma);
+        title_sb = (TextView) findViewById(R.id.title_sb);
+        title_da = (TextView) findViewById(R.id.title_da);
 
 
-        title_japa = (TextView)findViewById(R.id.title_japa);
+        title_japa = (TextView) findViewById(R.id.title_japa);
 
 
 //        Typeface tf = Typeface.createFromAsset(getAssets(), "abhi.ttf");
@@ -84,10 +83,10 @@ public class EachDay extends AppCompatActivity {
 //        title_da.setTypeface(tf);
 //        title_japa.setTypeface(tf);
 
-        ma_b = (LinearLayout)findViewById(R.id.ma_b);
-        ma_f = (LinearLayout)findViewById(R.id.ma_f);
-        da_f = (LinearLayout)findViewById(R.id.da_f);
-        sb_f = (LinearLayout)findViewById(R.id.sb_f);
+        ma_b = (LinearLayout) findViewById(R.id.ma_b);
+        ma_f = (LinearLayout) findViewById(R.id.ma_f);
+        da_f = (LinearLayout) findViewById(R.id.da_f);
+        sb_f = (LinearLayout) findViewById(R.id.sb_f);
 
         ma_f_full = (ImageView) findViewById(R.id.ma_f_full);
         ma_f_partial = (ImageView) findViewById(R.id.ma_f_partial);
@@ -120,10 +119,9 @@ public class EachDay extends AppCompatActivity {
         ma_Switch.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (ma_Switch.isChecked()){
+                if (ma_Switch.isChecked()) {
                     ma_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     ma_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -132,10 +130,9 @@ public class EachDay extends AppCompatActivity {
         da_Switch.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (da_Switch.isChecked()){
+                if (da_Switch.isChecked()) {
                     da_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     da_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -145,8 +142,7 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 if (sb_Switch.isChecked()) {
                     sb_f.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     sb_f.setVisibility(View.VISIBLE);
                 }
             }
@@ -159,7 +155,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(0,date);print();printOnlyQuery();
+                up_MA(0, date);
+                print();
+                printOnlyQuery();
 //                mDataSource.open();
 //                mDataSource.update_MA(3,30);
 //                mDataSource.close();
@@ -171,7 +169,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(100,date);print();printOnlyQuery();
+                up_MA(100, date);
+                print();
+                printOnlyQuery();
             }
         });
         ma_f_partial.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +179,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(50,date);print();printOnlyQuery();
+                up_MA(50, date);
+                print();
+                printOnlyQuery();
             }
         });
 
@@ -189,7 +191,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(8,date);print();printOnlyQuery();
+                up_MA(8, date);
+                print();
+                printOnlyQuery();
             }
         });
         ma_b_os.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +201,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(9,date);print();printOnlyQuery();
+                up_MA(9, date);
+                print();
+                printOnlyQuery();
             }
         });
         ma_b_other.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +211,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(ma_Card);
                 waitForOneSec(ma_Card);
-                up_MA(10,date);print();printOnlyQuery();
+                up_MA(10, date);
+                print();
+                printOnlyQuery();
             }
         });
 
@@ -216,14 +224,18 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(0,date);print();printOnlyQuery();
+                up_SB(0, date);
+                print();
+                printOnlyQuery();
             }
         });
         sb_f_full.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(100,date);print();printOnlyQuery();
+                up_SB(100, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -231,7 +243,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(50,date);print();printOnlyQuery();
+                up_SB(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -241,7 +255,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(10,date);print();printOnlyQuery();
+                up_SB(10, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -250,7 +266,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(8,date);print();printOnlyQuery();
+                up_SB(8, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -258,7 +276,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(sb_Card);
                 waitForOneSec(sb_Card);
-                up_SB(9,date);print();printOnlyQuery();
+                up_SB(9, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -268,7 +288,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(0,date);print();printOnlyQuery();
+                up_DA(0, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -276,7 +298,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(100,date);print();printOnlyQuery();
+                up_DA(100, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -284,7 +308,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(50,date);print();printOnlyQuery();
+                up_DA(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -294,7 +320,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(9,date);print();printOnlyQuery();
+                up_DA(9, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -302,7 +330,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(10,date);print();printOnlyQuery();
+                up_DA(10, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -310,7 +340,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(da_Card);
                 waitForOneSec(da_Card);
-                up_DA(8,date);print();printOnlyQuery();
+                up_DA(8, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -319,7 +351,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(100,date);print();printOnlyQuery();
+                up_JP(100, date);
+                print();
+                printOnlyQuery();
                 printOnlyQuery();
 
             }
@@ -328,7 +362,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(75,date);print();printOnlyQuery();
+                up_JP(75, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -336,7 +372,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(50,date);print();printOnlyQuery();
+                up_JP(50, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -344,7 +382,9 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(25,date);print();printOnlyQuery();
+                up_JP(25, date);
+                print();
+                printOnlyQuery();
 
             }
         });
@@ -352,7 +392,8 @@ public class EachDay extends AppCompatActivity {
             public void onClick(View v) {
                 removeCard(japa_card);
                 waitForOneSec(japa_card);
-                up_JP(0,date);print();
+                up_JP(0, date);
+                print();
                 printOnlyQuery();
             }
         });
@@ -361,7 +402,7 @@ public class EachDay extends AppCompatActivity {
         Toast.makeText(EachDay.this, "" + date,
                 Toast.LENGTH_LONG).show();
 
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
         mDataSource.insertOnlyFirstTimeInTableSadhana();
         showCards();
@@ -391,7 +432,7 @@ public class EachDay extends AppCompatActivity {
             resett();
             print();
             return true;
-        }else if (id == R.id.full){
+        } else if (id == R.id.full) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -403,24 +444,24 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(100,date);
+                if (j == -1) {
+                    mDataSource.update_MA(100, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(100,date);
+                if (k == -1) {
+                    mDataSource.update_DA(100, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(100,date);
+                if (l == -1) {
+                    mDataSource.update_SB(100, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(100,date);
+                if (m == -1) {
+                    mDataSource.update_JP(100, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.half){
+        } else if (id == R.id.half) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -432,24 +473,24 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(50,date);
+                if (j == -1) {
+                    mDataSource.update_MA(50, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(50,date);
+                if (k == -1) {
+                    mDataSource.update_DA(50, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(50,date);
+                if (l == -1) {
+                    mDataSource.update_SB(50, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(50,date);
+                if (m == -1) {
+                    mDataSource.update_JP(50, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.no){
+        } else if (id == R.id.no) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -461,24 +502,24 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(0,date);
+                if (j == -1) {
+                    mDataSource.update_MA(0, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(0,date);
+                if (k == -1) {
+                    mDataSource.update_DA(0, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(0,date);
+                if (l == -1) {
+                    mDataSource.update_SB(0, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(0,date);
+                if (m == -1) {
+                    mDataSource.update_JP(0, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.sick){
+        } else if (id == R.id.sick) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -490,24 +531,24 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(8,date);
+                if (j == -1) {
+                    mDataSource.update_MA(8, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(8,date);
+                if (k == -1) {
+                    mDataSource.update_DA(8, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(8,date);
+                if (l == -1) {
+                    mDataSource.update_SB(8, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(8,date);
+                if (m == -1) {
+                    mDataSource.update_JP(8, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.others){
+        } else if (id == R.id.others) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -519,24 +560,24 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(10,date);
+                if (j == -1) {
+                    mDataSource.update_MA(10, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(10,date);
+                if (k == -1) {
+                    mDataSource.update_DA(10, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(10,date);
+                if (l == -1) {
+                    mDataSource.update_SB(10, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(10,date);
+                if (m == -1) {
+                    mDataSource.update_JP(10, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
             hideAllCards();
-        }else if (id == R.id.os){
+        } else if (id == R.id.os) {
             mDataSource.open();
             Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
@@ -548,19 +589,19 @@ public class EachDay extends AppCompatActivity {
                 int m = cursor.getInt(6);
                 int n = cursor.getInt(7);
 
-                if (j == -1){
-                    mDataSource.update_MA(9,date);
+                if (j == -1) {
+                    mDataSource.update_MA(9, date);
                 }
-                if (k == -1){
-                    mDataSource.update_DA(9,date);
+                if (k == -1) {
+                    mDataSource.update_DA(9, date);
                 }
-                if (l == -1){
-                    mDataSource.update_SB(9,date);
+                if (l == -1) {
+                    mDataSource.update_SB(9, date);
                 }
-                if (m == -1){
-                    mDataSource.update_JP(9,date);
+                if (m == -1) {
+                    mDataSource.update_JP(9, date);
                 }
-                mDataSource.update_IS(1,date);
+                mDataSource.update_IS(1, date);
                 cursor.moveToNext();
             }
             mDataSource.close();
@@ -569,11 +610,11 @@ public class EachDay extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void removeCard(CardView c){
+    void removeCard(CardView c) {
         c.animate().scaleX(0).scaleY(0).start();
     }
 
-    void waitForOneSec(final CardView c){
+    void waitForOneSec(final CardView c) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -582,10 +623,10 @@ public class EachDay extends AppCompatActivity {
         }, 400);
     }
 
-    void print(){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
+    void print() {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
-        Log.v("MarksFROMEachDay : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("MarksFROMEachDay : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -604,13 +645,13 @@ public class EachDay extends AppCompatActivity {
             int n = cursor.getInt(7);
 
 
-            Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
     }
 
-    void hideAllCards(){
+    void hideAllCards() {
         ma_Card.setVisibility(View.GONE);
         ma_Card.animate().scaleX(0).scaleY(0).start();
         da_Card.setVisibility(View.GONE);
@@ -621,13 +662,14 @@ public class EachDay extends AppCompatActivity {
         japa_card.animate().scaleX(0).scaleY(0).start();
         imageView.setVisibility(View.GONE);
     }
-    public void resett(){
+
+    public void resett() {
         mDataSource.open();
-        mDataSource.update_JP(-1,date);
-        mDataSource.update_MA(-1,date);
-        mDataSource.update_SB(-1,date);
-        mDataSource.update_DA(-1,date);
-        mDataSource.update_IS(-1,date);
+        mDataSource.update_JP(-1, date);
+        mDataSource.update_MA(-1, date);
+        mDataSource.update_SB(-1, date);
+        mDataSource.update_DA(-1, date);
+        mDataSource.update_IS(-1, date);
         mDataSource.close();
 
         ma_Card.setVisibility(View.VISIBLE);
@@ -642,10 +684,10 @@ public class EachDay extends AppCompatActivity {
         print();
     }
 
-    void printOnlyQuery(){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
+    void printOnlyQuery() {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
-        Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -656,23 +698,23 @@ public class EachDay extends AppCompatActivity {
             int m = cursor.getInt(6);
             int n = cursor.getInt(7);
 
-            if (j != -1 && k != -1 && l != -1 && m != -1){
-                up_IS(1,date);
+            if (j != -1 && k != -1 && l != -1 && m != -1) {
+                up_IS(1, date);
                 imageView.setVisibility(View.VISIBLE);
                 print();
 //                imageView.setVisibility(View.VISIBLE);
             }
 
-            Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
     }
 
-    void showCards(){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
+    void showCards() {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
-        Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -683,76 +725,80 @@ public class EachDay extends AppCompatActivity {
             int m = cursor.getInt(6);
             int n = cursor.getInt(7);
 
-            if (j != -1 && k != -1 && l != -1 && m != -1){
-                up_IS(1,date);
+            if (j != -1 && k != -1 && l != -1 && m != -1) {
+                up_IS(1, date);
                 print();
 
             }
-            if (n == 1){
+            if (n == 1) {
                 imageView.setImageResource(R.drawable.isupdated);
                 imageView.setVisibility(View.VISIBLE);
             }
 
-            if (j == -1){
+            if (j == -1) {
                 ma_Card.setVisibility(View.VISIBLE);
             }
 
-            if (k == -1){
+            if (k == -1) {
                 da_Card.setVisibility(View.VISIBLE);
             }
 
-            if (l == -1){
+            if (l == -1) {
                 sb_Card.setVisibility(View.VISIBLE);
             }
 
-            if (m == -1){
+            if (m == -1) {
                 japa_card.setVisibility(View.VISIBLE);
             }
 
-            Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();
         }
         mDataSource.close();
     }
 
-    void up_MA(int value, int id){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
+    void up_MA(int value, int id) {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_MA(value,id);
-        mDataSource.close();
-    }
-    void up_DA(int value, int id){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_DA(value,id);
-        mDataSource.close();
-    }
-    void up_SB(int value, int id){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_SB(value,id);
-        mDataSource.close();
-    }
-    void up_JP(int value, int id){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_JP(value,id);
-        mDataSource.close();
-    }
-    void up_IS(int value, int id){
-        mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
-        mDataSource.open();
-        mDataSource.update_IS(value,id);
+        mDataSource.update_MA(value, id);
         mDataSource.close();
     }
 
-    public void resett(View view){
+    void up_DA(int value, int id) {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
         mDataSource.open();
-        mDataSource.update_JP(-1,date);
-        mDataSource.update_MA(-1,date);
-        mDataSource.update_SB(-1,date);
-        mDataSource.update_DA(-1,date);
-        mDataSource.update_IS(-1,date);
+        mDataSource.update_DA(value, id);
+        mDataSource.close();
+    }
+
+    void up_SB(int value, int id) {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.update_SB(value, id);
+        mDataSource.close();
+    }
+
+    void up_JP(int value, int id) {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.update_JP(value, id);
+        mDataSource.close();
+    }
+
+    void up_IS(int value, int id) {
+        mDataSource = new SadhnaDataSource(EachDay.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.update_IS(value, id);
+        mDataSource.close();
+    }
+
+    public void resett(View view) {
+        mDataSource.open();
+        mDataSource.update_JP(-1, date);
+        mDataSource.update_MA(-1, date);
+        mDataSource.update_SB(-1, date);
+        mDataSource.update_DA(-1, date);
+        mDataSource.update_IS(-1, date);
         mDataSource.close();
 
         ma_Card.setVisibility(View.VISIBLE);
@@ -771,5 +817,5 @@ public class EachDay extends AppCompatActivity {
     public void nav_back(View view) {
         onBackPressed();
     }
-    
+
 }

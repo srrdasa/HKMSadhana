@@ -3,16 +3,13 @@ package com.hkm.hkmsadhna;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -366,7 +363,7 @@ public class EachDay extends AppCompatActivity {
 
         mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
         mDataSource.open();
-        mDataSource.insertOnlyFirstTime();
+        mDataSource.insertOnlyFirstTimeInTableSadhana();
         showCards();
 
 //        mDataSource.dropTable();
@@ -396,15 +393,15 @@ public class EachDay extends AppCompatActivity {
             return true;
         }else if (id == R.id.full){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(100,date);
@@ -425,15 +422,15 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         }else if (id == R.id.half){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(50,date);
@@ -454,15 +451,15 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         }else if (id == R.id.no){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(0,date);
@@ -483,15 +480,15 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         }else if (id == R.id.sick){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(8,date);
@@ -512,15 +509,15 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         }else if (id == R.id.others){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(10,date);
@@ -541,15 +538,15 @@ public class EachDay extends AppCompatActivity {
             hideAllCards();
         }else if (id == R.id.os){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(9,date);
@@ -574,7 +571,6 @@ public class EachDay extends AppCompatActivity {
 
     void removeCard(CardView c){
         c.animate().scaleX(0).scaleY(0).start();
-
     }
 
     void waitForOneSec(final CardView c){
@@ -590,7 +586,7 @@ public class EachDay extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
         mDataSource.open();
         Log.v("MarksFROMEachDay : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int a = cursor.getColumnIndex(MarksHelper.COLUMN_DATE);
@@ -601,11 +597,11 @@ public class EachDay extends AppCompatActivity {
             int f = cursor.getColumnIndex(MarksHelper.COLUMN_ISCOMPLETED);
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
 
             Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
@@ -650,15 +646,15 @@ public class EachDay extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.checkUpdate(date);
+        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
             if (j != -1 && k != -1 && l != -1 && m != -1){
                 up_IS(1,date);
@@ -677,15 +673,15 @@ public class EachDay extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(EachDay.this,DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.checkUpdate(date);
+        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
             if (j != -1 && k != -1 && l != -1 && m != -1){
                 up_IS(1,date);

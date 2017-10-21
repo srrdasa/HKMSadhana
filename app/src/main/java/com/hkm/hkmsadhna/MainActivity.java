@@ -475,7 +475,7 @@ String s = String.valueOf(year);
 
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
-        mDataSource.insertOnlyFirstTime();
+        mDataSource.insertOnlyFirstTimeInTableSadhana();
         printNew();
         showCards();
 
@@ -536,15 +536,15 @@ String s = String.valueOf(year);
             return true;
         }else if (id == R.id.full){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(100,date);
@@ -565,15 +565,15 @@ String s = String.valueOf(year);
             hideAllCards();
         }else if (id == R.id.half){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(50,date);
@@ -594,15 +594,15 @@ String s = String.valueOf(year);
             hideAllCards();
         }else if (id == R.id.no){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(0,date);
@@ -623,15 +623,15 @@ String s = String.valueOf(year);
             hideAllCards();
         }else if (id == R.id.others){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(8,date);
@@ -652,15 +652,15 @@ String s = String.valueOf(year);
             hideAllCards();
         }else if (id == R.id.sick){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(10,date);
@@ -681,15 +681,15 @@ String s = String.valueOf(year);
             hideAllCards();
         }else if (id == R.id.os){
             mDataSource.open();
-            Cursor cursor = mDataSource.checkUpdate(date);
+            Cursor cursor = mDataSource.getDataForCurruntMonth(date);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int i = cursor.getInt(0);
-                int j = cursor.getInt(1);
-                int k = cursor.getInt(2);
-                int l = cursor.getInt(3);
-                int m = cursor.getInt(4);
-                int n = cursor.getInt(5);
+                int j = cursor.getInt(3);
+                int k = cursor.getInt(4);
+                int l = cursor.getInt(5);
+                int m = cursor.getInt(6);
+                int n = cursor.getInt(7);
 
                 if (j == -1){
                     mDataSource.update_MA(9,date);
@@ -818,7 +818,7 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readDataFromReport();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
@@ -839,7 +839,7 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readDataFromReport(5);
+        Cursor cursor = mDataSource.getDataForCurruntMonth(5);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
@@ -866,16 +866,16 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
             mUpload.child(i+"").child("MA").setValue(j);
             mUpload.child(i+"").child("DA").setValue(k);
@@ -890,16 +890,16 @@ String s = String.valueOf(year);
      DatabaseReference mUploadReport = FirebaseDatabase.getInstance().getReference().child("Report").child(convertedEmail);
 
 
-        Cursor cursor2 = mDataSource.readDataFromReport();
+        Cursor cursor2 = mDataSource.getDataForCurruntMonth();
         cursor2.moveToFirst();
         while (!cursor2.isAfterLast()) {
 
             int i = cursor2.getInt(0);
-            int j = cursor2.getInt(1);
-            int k = cursor2.getInt(2);
-            int l = cursor2.getInt(3);
-            int m = cursor2.getInt(4);
-            int n = cursor2.getInt(5);
+            int j = cursor2.getInt(3);
+            int k = cursor2.getInt(4);
+            int l = cursor2.getInt(5);
+            int m = cursor2.getInt(6);
+            int n = cursor2.getInt(7);
 
             mUploadReport.child(reportTableId+"").child("MA").setValue(j);
             mUploadReport.child(reportTableId+"").child("DA").setValue(k);
@@ -922,15 +922,15 @@ String s = String.valueOf(year);
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
             Log.v("Test",j+"");
             Log.v("Test",m+"");
@@ -990,7 +990,7 @@ Log.v("hamkk","hmkk");
 
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
-        mDataSource.insertOnlyFirstTimeInReport(id,ma,da,sb,jp,totle);
+        mDataSource.insertIntoTableReport(id,ma,da,sb,jp,totle);
         mDataSource.close();
     }
 
@@ -1012,15 +1012,16 @@ Log.v("hamkk","hmkk");
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.checkUpdate(date);
+        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
+
 
             if (n == 1){
                 Log.v("Hmm","Hmm");
@@ -1196,16 +1197,16 @@ Log.v("hamkk","hmkk");
         mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
 
             fromSQL[i] = n;
 
@@ -1552,65 +1553,10 @@ Log.v("hamkk","hmkk");
 
                     mDataSource = new SadhnaDataSource(MainActivity.this,DB_NAME);
                     mDataSource.open();
-                    mDataSource.insertOnlyFirstTimeInReport(Ikey,Ima,Ida,Isb,Ijp,Itotle);
+                    mDataSource.insertIntoTableReport(Ikey,Ima,Ida,Isb,Ijp,Itotle);
                     mDataSource.close();
                 }
-//                    String bg = ds.child("BG").getValue().toString();
-//                    int Ibg = Integer.parseInt(bg);
-//                    String jp = ds.child("JP").getValue().toString();
-//                    int Ijp = Integer.parseInt(jp);
-//
-//                    String da = ds.child("DA").getValue().toString();
-//                    int Ida = Integer.parseInt(da);
-//
-//                    String ma = ds.child("MA").getValue().toString();
-//                    int Ima = Integer.parseInt(ma);
-//
-//                    Log.v("Count", bg);
-//                    Log.v("CountValue", i + "");
-//
-//
-//                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
-//                    mDataSource.open();
-//                    mDataSource.update_SB(Ibg, i);
-//                    mDataSource.update_JP(Ijp, i);
-//                    mDataSource.update_MA(Ima, i);
-//                    mDataSource.update_DA(Ida, i);
-//
-//
-//                    Cursor cursor = mDataSource.checkUpdate(i);
-//                    cursor.moveToFirst();
-//                    while (!cursor.isAfterLast()) {
-//                        int ii = cursor.getInt(0);
-//                        int j = cursor.getInt(1);
-//                        int k = cursor.getInt(2);
-//                        int l = cursor.getInt(3);
-//                        int m = cursor.getInt(4);
-//                        int n = cursor.getInt(5);
-//
-//                        if (j != -1 && k != -1 && l != -1 && m != -1) {
-//                            up_IS(1, i);
-//                            print();
-//                        }
-//
-//                        Log.v("Marks : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
-//                        cursor.moveToNext();
-//                    }
-//
-//
-//                    mDataSource.close();
-//
-//
-//                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
-//                    mDataSource.open();
-//                    Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-//
-//                    mDataSource.close();
-//
-//
-//                    i++;
-//                }
-//                showCards();
+
             }
 
             @Override
@@ -1618,9 +1564,6 @@ Log.v("hamkk","hmkk");
 
             }
         });
-
-
-
     }
 
     void checkUserDatabaseExistOrNot(){

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hkm.hkmsadhna.adapter.DerpAdapter;
 import com.hkm.hkmsadhna.adapter.NewDerpAdapter;
 import com.hkm.hkmsadhna.db.SadhnaDataSource;
 import com.hkm.hkmsadhna.model.ListItem;
@@ -72,7 +71,7 @@ public class Summary extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(Summary.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readDataFromReport();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 

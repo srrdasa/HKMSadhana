@@ -41,17 +41,6 @@ public class SadhnaDataSource {
         mDatabase.close();
     }
 
-    public void update() {
-        for (int i = 1;i <= 30; i++){
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_DA, 0);
-            String where = MarksHelper.COLUMN_DATE+"=?";
-            String[] whereArgs = new String[] {String.valueOf(i)};
-            mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
-            Log.v("Number is  : ", 50 + " : Number is ");
-        }
-    }
-
 
     public void update_MA(int ma,int id) {
             ContentValues values = new ContentValues();
@@ -93,86 +82,12 @@ public class SadhnaDataSource {
         mDatabase.update(MarksHelper.TABLE_SADHNA, values,where,whereArgs);
     }
 
-    public void updateReport(int id,int ma,int da,int sb,int jp,int totle) {
-        ContentValues values = new ContentValues();
-        values.put(MarksHelper.REPORT_COLUMN_ID, id);
-        values.put(MarksHelper.REPORT_COLUMN_MA, ma);
-        values.put(MarksHelper.REPORT_COLUMN_DA, da);
-        values.put(MarksHelper.REPORT_COLUMN_SB, sb);
-        values.put(MarksHelper.REPORT_COLUMN_JP, jp);
-        values.put(MarksHelper.REPORT_COLUMN_Totle, totle);
-
-        String where = MarksHelper.COLUMN_DATE+"=?";
-        String[] whereArgs = new String[] {String.valueOf(id)};
-        mDatabase.update(MarksHelper.TABLE_REPORT, values,where,whereArgs);
-    }
 
 
-//    public void insert() {
-//        String where = "id=?";
-//        String[] whereArgs = new String[] {String.valueOf(i)};
-//        ContentValues values = new ContentValues();
-//        values.put(MarksHelper.COLUMN_BG, 100);
-//        mDatabase.update(MarksHelper.TABLE_SADHNA, null, values);
-//        Log.v("Number is  : ", 50 + " : Number is ");
-//    }
-
-    public void insert() {
-        for (int number : factorial){
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_BG, number);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA, null, values);
-            Log.v("Number is  : ", number + " : Number is ");
-        }
-    }
-
-    public void insertOnlyFirstTime() {
-        if (checkRowExistOrNot(28,MarksHelper.TABLE_SADHNA)){
-
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_MONTH, 11);
-            values.put(MarksHelper.COLUMN_YEAR, year);
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DATE, 5);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
-
-            ContentValues values1 = new ContentValues();
-            values1.put(MarksHelper.COLUMN_MONTH, 13);
-            values1.put(MarksHelper.COLUMN_YEAR, 2010);
-            values1.put(MarksHelper.COLUMN_MA, -1);
-            values1.put(MarksHelper.COLUMN_DATE, 5);
-            values1.put(MarksHelper.COLUMN_DA, -1);
-            values1.put(MarksHelper.COLUMN_BG, -1);
-            values1.put(MarksHelper.COLUMN_JP, -1);
-            values1.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values1);
+    public void insertOnlyFirstTimeInTableSadhana() {
+        if (checkRowExistOrNotFromSadhna(28)){
 
 
-            ContentValues ss = new ContentValues();
-            ss.put(MarksHelper.COLUMN_MONTH, 13);
-            ss.put(MarksHelper.COLUMN_YEAR, 2010);
-            ss.put(MarksHelper.COLUMN_MA, -1);
-            ss.put(MarksHelper.COLUMN_DATE, 5);
-            ss.put(MarksHelper.COLUMN_DA, -1);
-            ss.put(MarksHelper.COLUMN_BG, -1);
-            ss.put(MarksHelper.COLUMN_JP, -1);
-            ss.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,ss);
-
-            ContentValues dd = new ContentValues();
-            dd.put(MarksHelper.COLUMN_MONTH, 13);
-            dd.put(MarksHelper.COLUMN_YEAR, 2010);
-            dd.put(MarksHelper.COLUMN_MA, -1);
-            dd.put(MarksHelper.COLUMN_DATE, 5);
-            dd.put(MarksHelper.COLUMN_DA, -1);
-            dd.put(MarksHelper.COLUMN_BG, -1);
-            dd.put(MarksHelper.COLUMN_JP, -1);
-            dd.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,dd);
         }
         else {
             for (int i = 1; i <= totalDaysInMonth ;i++){
@@ -187,32 +102,12 @@ public class SadhnaDataSource {
                 values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
                 mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
             }
-            ContentValues values = new ContentValues();
-            values.put(MarksHelper.COLUMN_MONTH, 11);
-            values.put(MarksHelper.COLUMN_YEAR, year);
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DATE, 5);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values);
 
-            ContentValues values1 = new ContentValues();
-            values.put(MarksHelper.COLUMN_MONTH, 13);
-            values.put(MarksHelper.COLUMN_YEAR, year + 1);
-            values.put(MarksHelper.COLUMN_MA, -1);
-            values.put(MarksHelper.COLUMN_DATE, 5);
-            values.put(MarksHelper.COLUMN_DA, -1);
-            values.put(MarksHelper.COLUMN_BG, -1);
-            values.put(MarksHelper.COLUMN_JP, -1);
-            values.put(MarksHelper.COLUMN_ISCOMPLETED, -1);
-            mDatabase.insert(MarksHelper.TABLE_SADHNA,null,values1);
         }
     }
 
-    public void insertOnlyFirstTimeInReport(int id,int ma,int da,int sb,int jp,int total) {
-        if (checkRowExistOrNotFromReport(id,MarksHelper.TABLE_REPORT)){
+    public void insertIntoTableReport(int id, int ma, int da, int sb, int jp, int total) {
+        if (checkRowExistOrNotFromReport(id)){
             ContentValues values = new ContentValues();
             values.put(MarksHelper.REPORT_COLUMN_MA, ma);
             values.put(MarksHelper.REPORT_COLUMN_DA, da);
@@ -239,8 +134,9 @@ public class SadhnaDataSource {
 
 //    Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +TABLE_NAME+ " where "+MarksHelper.COLUMN_DATE + " = "+in + " AND " + MarksHelper.COLUMN_YEAR + " = "+ 9+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
 
-    public boolean checkRowExistOrNot(int in,String TABLE_NAME) {
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +TABLE_NAME+ " where "+MarksHelper.COLUMN_DATE + " = "+in+";",null);
+
+    public boolean checkRowExistOrNotFromReport(int in) {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_REPORT+ " where "+MarksHelper.REPORT_COLUMN_ID + " = "+in+";",null);
         if(cursor.getCount() <= 0){
             cursor.close();
             return false;
@@ -248,47 +144,28 @@ public class SadhnaDataSource {
         else return true;
     }
 
-    public boolean checkRowExistOrNotFromReport(int in,String TABLE_NAME) {
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +TABLE_NAME+ " where "+MarksHelper.REPORT_COLUMN_ID + " = "+in+";",null);
-        if(cursor.getCount() <= 0){
-            cursor.close();
-            return false;
-        }
-        else return true;
-    }
-
-    public Cursor readData(){
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+";",null);
+    public Cursor getDataForCurruntMonth(int id) {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
         return cursor;
     }
 
+    public Cursor getDataForCurruntMonth() {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+ MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
+        return cursor;
+    }
 
-    public Cursor readDataFromReport(){
+    public boolean checkRowExistOrNotFromSadhna(int id) {
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        else return true;
+    }
+
+    public Cursor getAllDataFromTableSadhna() {
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_REPORT+";",null);
         return cursor;
     }
 
-    public Cursor readDataFromReport(int id) {
-    Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ 11 +";",null);
-        return cursor;
-    }
-
-    public void dropTable() {
-        mDatabase.delete(MarksHelper.TABLE_SADHNA,null,null);
-    }
-
-    public Cursor checkUpdate(int id) {
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " WHERE " + MarksHelper.COLUMN_DATE + " = "+ id +";",null);
-        return cursor;
-    }
-
-    public void insertReport(int id, int ma, int da, int sb, int jp, int totle) {
-        ContentValues values = new ContentValues();
-        values.put(MarksHelper.REPORT_COLUMN_MA, id);
-        values.put(MarksHelper.REPORT_COLUMN_DA, ma);
-        values.put(MarksHelper.REPORT_COLUMN_SB, sb);
-        values.put(MarksHelper.REPORT_COLUMN_JP, jp);
-        values.put(MarksHelper.REPORT_COLUMN_Totle, totle);
-        mDatabase.insert(MarksHelper.TABLE_REPORT,null,values);
-    }
 }

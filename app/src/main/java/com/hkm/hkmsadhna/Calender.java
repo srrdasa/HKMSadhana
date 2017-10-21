@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -63,8 +62,8 @@ public class Calender extends AppCompatActivity {
 
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this,DB_NAME);
         mDataSource.open();
-        mDataSource.insertOnlyFirstTime();
-        mDataSource.readData();
+        mDataSource.insertOnlyFirstTimeInTableSadhana();
+        mDataSource.getDataForCurruntMonth();
 
 
         fabAll = (ImageView)findViewById(R.id.fabAll);
@@ -952,16 +951,16 @@ public class Calender extends AppCompatActivity {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             int i = cursor.getInt(0);
-            int j = cursor.getInt(1);
-            int k = cursor.getInt(2);
-            int l = cursor.getInt(3);
-            int m = cursor.getInt(4);
-            int n = cursor.getInt(5);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
             fromSQL[i] = n;
             Log.v("Marks : "," | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor.moveToNext();

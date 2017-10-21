@@ -2,14 +2,12 @@ package com.hkm.hkmsadhna;
 
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.hkm.hkmsadhna.adapter.DerpAdapter;
@@ -75,7 +73,7 @@ public class Recycler_view extends AppCompatActivity {
         mDataSource = new SadhnaDataSource(Recycler_view.this,DB_NAME);
         mDataSource.open();
         Log.v("Marks : "," | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.readData();
+        Cursor cursor = mDataSource.getDataForCurruntMonth();
         Log.v("Cursor",cursor+"");
         cursor.moveToFirst();
         while (z <= date) {

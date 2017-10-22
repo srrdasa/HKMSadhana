@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.hkm.hkmsadhna.MainActivity;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -114,6 +116,7 @@ public class SadhnaDataSource {
         else {
             i--;
         }
+
         if (checkRowExistOrNotFromSadhna(28,i,j)){
 
 
@@ -121,8 +124,8 @@ public class SadhnaDataSource {
         else {
             for (int z = 1; z <= totalDaysInMonth ;z++){
                 ContentValues values = new ContentValues();
-                values.put(MarksHelper.COLUMN_MONTH, month);
-                values.put(MarksHelper.COLUMN_YEAR, year);
+                values.put(MarksHelper.COLUMN_MONTH, i);
+                values.put(MarksHelper.COLUMN_YEAR, j);
                 values.put(MarksHelper.COLUMN_DATE, z);
                 values.put(MarksHelper.COLUMN_MA, -1);
                 values.put(MarksHelper.COLUMN_DA, -1);
@@ -221,7 +224,6 @@ public class SadhnaDataSource {
     public boolean checkRowExistOrNotFromSadhna(int id,int month,int year) {
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM " +MarksHelper.TABLE_SADHNA+ " where "+MarksHelper.COLUMN_DATE + " = "+id + " AND " + MarksHelper.COLUMN_YEAR + " = "+ year+ " AND " + MarksHelper.COLUMN_MONTH + " = "+ month +";",null);
         if(cursor.getCount() <= 0){
-            cursor.close();
             return false;
         }
         else return true;

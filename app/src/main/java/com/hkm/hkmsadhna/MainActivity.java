@@ -893,6 +893,23 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    boolean checkLastMonthDataIsThereOrNot() {
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+        mDataSource.open();
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "Month" + " | \t" + "Year" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Cursor cursor = mDataSource.getDataForLastMonth();
+        int s = cursor.getCount();
+        mDataSource.close();
+        if (s > 27){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
     void UploadDatatoFirebase() {
         dialog.show();
         //TODO : insted of abhiramani3@gmail take value of convertedEmail from sharedPreference and replace
@@ -945,6 +962,43 @@ public class MainActivity extends AppCompatActivity
             Log.v("MarksFROM DATAUPDATE : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
             cursor2.moveToNext();
         }
+
+
+if (checkLastMonthDataIsThereOrNot()){
+    int mm = month,y= year;
+    if (month == 0){
+        mm = 11;
+        y = y - 1;
+    }
+    else {
+        mm--;
+    }
+
+        mUpload = FirebaseDatabase.getInstance().getReference().child("UserData").child(y + "").child(mm + "").child(convertedEmail);
+        mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+        mDataSource.open();
+        Log.v("Marks : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Cursor cursor1 = mDataSource.getDataForLastMonth();
+        cursor1.moveToFirst();
+        while (!cursor1.isAfterLast()) {
+
+            int i = cursor1.getInt(0);
+            int j = cursor1.getInt(3);
+            int k = cursor1.getInt(4);
+            int l = cursor1.getInt(5);
+            int m = cursor1.getInt(6);
+            int n = cursor1.getInt(7);
+
+            mUpload.child(i + "").child("MA").setValue(j);
+            mUpload.child(i + "").child("DA").setValue(k);
+            mUpload.child(i + "").child("BG").setValue(l);
+            mUpload.child(i + "").child("JP").setValue(m);
+
+
+            Log.v("MarksFROM DATAUPDATE : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            cursor1.moveToNext();
+        }}
+        else {}
 
         mDataSource.close();
         dialog.dismiss();
@@ -1622,22 +1676,26 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final int i = month;
-        final int j = year;
+        int i = month;
+        int j = year;
         if (i == 0){
             i = 11;
             j --;
         }
         else {
-            i--;
+            i = i -1;
         }
 
+        final int finalI = i;
+        final int finalJ = j;
         mcheckForExistence.child(j+ "").child(i+ "").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("mmmm", dataSnapshot + "");
                 if (dataSnapshot.hasChild(convertedEmail)) {
-                    getLastMonthValueFromFirebase(i,j);
+                    Log.v("abcde",finalI+"");
+                    Log.v("abcde",finalJ+"");
+                    getLastMonthValueFromFirebase(finalI, finalJ);
                     uncompleteDaysOfSadhna();
                     showCards();
                     SharedPreferences settings = getSharedPreferences("Pre", MODE_PRIVATE);
@@ -1665,10 +1723,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
-mDataSource.insertOnlyFirstTimeInTableSadhanaForLastMonth();
+                mDataSource.open();
+                mDataSource.insertOnlyFirstTimeInTableSadhanaForLastMonth();
+                mDataSource.close();
                 Log.v("Datasnapshopt", dataSnapshot + "");
                 int i = 1;
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
+                    mDataSource.open();
                     String bg = ds.child("BG").getValue().toString();
                     int Ibg = Integer.parseInt(bg);
                     String jp = ds.child("JP").getValue().toString();
@@ -1684,7 +1747,6 @@ mDataSource.insertOnlyFirstTimeInTableSadhanaForLastMonth();
                     Log.v("CountValue", i + "");
 
 
-                    mDataSource.open();
                     mDataSource.update_SB(Ibg, i,monthh,yearr);
                     mDataSource.update_JP(Ijp, i,monthh,yearr);
                     mDataSource.update_MA(Ima, i,monthh,yearr);
@@ -1696,9 +1758,6 @@ mDataSource.insertOnlyFirstTimeInTableSadhanaForLastMonth();
                     } else {
                         up_IS(-1, i,monthh,yearr);
                     }
-                    mDataSource.close();
-                    mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
-                    mDataSource.open();
                     Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
                     mDataSource.close();
                     i++;

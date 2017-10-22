@@ -516,11 +516,11 @@ public class Calender extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (int number : arl) {
-                    up_MA(100, number);
-                    up_DA(100, number);
-                    up_SB(100, number);
-                    up_JP(100, number);
-                    up_IS(1, number);
+                    up_MA(100, number,month,year);
+                    up_DA(100, number,month,year);
+                    up_SB(100, number,month,year);
+                    up_JP(100, number,month,year);
+                    up_IS(1, number,month,year);
                 }
                 fabDisappear();
                 setDate(totalDaysInMonth, gap);
@@ -533,11 +533,11 @@ public class Calender extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (int number : arl) {
-                    up_MA(8, number);
-                    up_DA(8, number);
-                    up_SB(8, number);
-                    up_JP(8, number);
-                    up_IS(1, number);
+                    up_MA(8, number,month,year);
+                    up_DA(8, number,month,year);
+                    up_SB(8, number,month,year);
+                    up_JP(8, number,month,year);
+                    up_IS(1, number,month,year);
                 }
                 ReasonFabDisappear();
                 setDate(totalDaysInMonth, gap);
@@ -550,11 +550,11 @@ public class Calender extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (int number : arl) {
-                    up_MA(9, number);
-                    up_DA(9, number);
-                    up_SB(9, number);
-                    up_JP(9, number);
-                    up_IS(1, number);
+                    up_MA(9, number,month,year);
+                    up_DA(9, number,month,year);
+                    up_SB(9, number,month,year);
+                    up_JP(9, number,month,year);
+                    up_IS(1, number,month,year);
                 }
                 ReasonFabDisappear();
                 setDate(totalDaysInMonth, gap);
@@ -567,11 +567,11 @@ public class Calender extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (int number : arl) {
-                    up_MA(10, number);
-                    up_DA(10, number);
-                    up_SB(10, number);
-                    up_JP(10, number);
-                    up_IS(1, number);
+                    up_MA(10, number,month,year);
+                    up_DA(10, number,month,year);
+                    up_SB(10, number,month,year);
+                    up_JP(10, number,month,year);
+                    up_IS(1, number,month,year);
                 }
                 ReasonFabDisappear();
                 setDate(totalDaysInMonth, gap);
@@ -1187,35 +1187,35 @@ public class Calender extends AppCompatActivity {
         }
     }
 
-    void up_MA(int value, int id) {
+    void up_MA(int value, int id,int month,int year) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_DA(int value, int id) {
+    void up_DA(int value, int id,int month,int year) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_DA(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_SB(int value, int id) {
+    void up_SB(int value, int id,int month,int year) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_SB(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_JP(int value, int id) {
+    void up_JP(int value, int id,int month,int year) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_JP(value, id,month,year);
         mDataSource.close();
     }
 
-    void up_IS(int value, int id) {
+    void up_IS(int value, int id,int month,int year) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
         mDataSource.open();
         mDataSource.update_IS(value, id,month,year);

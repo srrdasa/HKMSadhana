@@ -29,6 +29,7 @@ import java.util.GregorianCalendar;
 
 public class LastMonth extends AppCompatActivity {
     String DB_NAME = "new.db";
+    int totalMA,totleJP,totalDA,totleBG,reportTableId;
     // hare krishna
     TextView[] dateCal = new TextView[43];
     TextView[] extraDateCal = new TextView[4];
@@ -549,7 +550,9 @@ public class LastMonth extends AppCompatActivity {
                     up_SB(100, number);
                     up_JP(100, number);
                     up_IS(1, number);
+                    Log.v("Fulll","Inside " + number);
                 }
+
                 fabDisappear();
                 setDate(totalDaysInLastMonth, gap);
                 setImage(totalDaysInLastMonth, gap, date);
@@ -936,6 +939,7 @@ public class LastMonth extends AppCompatActivity {
                 return true;
             }
         });
+        printOnlyQuery();
     }
 
 
@@ -1202,6 +1206,7 @@ public class LastMonth extends AppCompatActivity {
     void up_MA(int value, int id) {
         SadhnaDataSource mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
+        Log.v("Updating",value + " " +id + " " +month + " " +year + " ");
         mDataSource.update_MA(value, id,month,year);
         mDataSource.close();
     }
@@ -1232,6 +1237,7 @@ public class LastMonth extends AppCompatActivity {
         mDataSource.open();
         mDataSource.update_IS(value, id,month,year);
         mDataSource.close();
+//        printOnlyQuery();
     }
 
     int MonthStartsFromFunc(int monthStartsFromm){
@@ -1251,6 +1257,99 @@ public class LastMonth extends AppCompatActivity {
 
         }
         return temp;
+    }
+
+
+    void printOnlyQuery() {
+        int ii = 1;
+        totalMA = 0;
+        totleJP = 0;
+        totalDA = 0;
+        totleBG = 0;
+        mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
+        mDataSource.open();
+        Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
+        Cursor cursor = mDataSource.getDataForLastMonth();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int i = cursor.getInt(0);
+            int j = cursor.getInt(3);
+            int k = cursor.getInt(4);
+            int l = cursor.getInt(5);
+            int m = cursor.getInt(6);
+            int n = cursor.getInt(7);
+
+            Log.v("Test", j + "");
+            Log.v("Test", m + "");
+            Log.v("Test", k + "");
+            Log.v("Test", l + "");
+            Log.v("TblReporttt:", totalMA + "");
+
+            totalMA = totalMA + j;
+            totleJP = totleJP + m;
+            totalDA = totalDA + k;
+            totleBG = totleBG + l;
+
+            if (j != -1 && k != -1 && l != -1 && m != -1) {
+                up_IS(1,date);
+                Log.v("hamkk", "hmkk");
+            }
+
+            Log.v("PrintOnly : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
+            cursor.moveToNext();
+            if (ii == date) {
+                break;
+            }
+            ii++;
+        }
+        Calendar calendar = Calendar.getInstance();
+        date = calendar.get(Calendar.DATE);
+        Log.v("TblReportt:", totalMA + "");
+
+        totleBG = totleBG / date;
+        totleJP = totleJP / date;
+        totalMA = totalMA / date;
+        totalDA = totalDA / date;
+        int totle = (totleBG + totalMA + totalDA + totleJP) / 4;
+
+        Log.v("TblReport:", reportTableId + "");
+        Log.v("TblReport:", totalMA + "");
+        Log.v("TblReport:", totalDA + "");
+        Log.v("TblReport:", totleBG + "");
+        Log.v("TblReport:", totleJP + "");
+        Log.v("TblReport:", totle + "");
+reportTableId = generateIdForTableReport();
+        updateReportTable(reportTableId, totalMA, totalDA, totleBG, totleJP, totle);
+
+        Log.v("Report", totalDA + "");
+        Log.v("Report", totalMA + "");
+        Log.v("Report", totleBG + "");
+        Log.v("Report", totleJP + "");
+
+        mDataSource.close();
+    }
+
+    private void updateReportTable(int id, int ma, int da, int sb, int jp, int totle) {
+        Log.v("idForReport", id + "");
+
+        mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
+        mDataSource.open();
+        mDataSource.insertIntoTableReport(id, ma, da, sb, jp, totle);
+        mDataSource.close();
+    }
+
+    private int generateIdForTableReport() {
+        int tempm = month,tempy = year;
+        if (tempm > 9) {
+            tempy = tempy * 100;
+        } else {
+            tempy = tempy * 10;
+        }
+        int i = tempy + tempm;
+        Log.v("idForReport", i + "");
+
+        Toast.makeText(LastMonth.this, "SpecialId" + i, Toast.LENGTH_LONG).show();
+        return i;
     }
 
     public void nav_back(View view) {

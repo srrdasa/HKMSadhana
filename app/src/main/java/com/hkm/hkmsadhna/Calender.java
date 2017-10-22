@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,7 +39,7 @@ public class Calender extends AppCompatActivity {
     int[] fromSQL = new int[100];
     ImageView[] imgView = new ImageView[43];
     ImageView[] extraImgView = new ImageView[4];
-
+Button btnLastMonth;
     ImageView fab, fabAll, fabExcuse, img, fabCancle, fabSick, fabOS, fabOthor;
     LinearLayout lastLayout;
     int monthStartsFrom, totalDaysInMonth, month, date, day, gap, year, actualLimit;
@@ -69,7 +70,7 @@ public class Calender extends AppCompatActivity {
         mDataSource.insertOnlyFirstTimeInTableSadhana();
         mDataSource.getDataForCurruntMonth();
 
-
+        btnLastMonth = (Button)findViewById(R.id.btnLastMonth);
         fabAll = (ImageView) findViewById(R.id.fabAll);
         fabExcuse = (ImageView) findViewById(R.id.fabExcuse);
         img = (ImageView) findViewById(R.id.img);
@@ -94,6 +95,7 @@ public class Calender extends AppCompatActivity {
         fabOS.setScaleY(0);
         fabOthor.setScaleX(0);
         fabOthor.setScaleY(0);
+
 
         mdate = (TextView) findViewById(R.id.date);
         dateCal[1] = (TextView) findViewById(R.id.d1);
@@ -139,9 +141,6 @@ public class Calender extends AppCompatActivity {
         dateCal[41] = (TextView) findViewById(R.id.d41);
         dateCal[42] = (TextView) findViewById(R.id.d42);
 
-        extraDateCal[1] = (TextView) findViewById(R.id.d43);
-        extraDateCal[2] = (TextView) findViewById(R.id.d44);
-        extraDateCal[3] = (TextView) findViewById(R.id.d45);
 
         lotRel[1] = (RelativeLayout) findViewById(R.id.lot1);
         lotRel[2] = (RelativeLayout) findViewById(R.id.lot2);
@@ -185,10 +184,6 @@ public class Calender extends AppCompatActivity {
         lotRel[40] = (RelativeLayout) findViewById(R.id.lot40);
         lotRel[41] = (RelativeLayout) findViewById(R.id.lot41);
         lotRel[42] = (RelativeLayout) findViewById(R.id.lot42);
-
-        ExtralotRel[1] = (RelativeLayout) findViewById(R.id.lot43);
-        ExtralotRel[2] = (RelativeLayout) findViewById(R.id.lot44);
-        ExtralotRel[3] = (RelativeLayout) findViewById(R.id.lot45);
 
 
         imgView[1] = (ImageView) findViewById(R.id.img1);
@@ -234,9 +229,6 @@ public class Calender extends AppCompatActivity {
         imgView[41] = (ImageView) findViewById(R.id.img41);
         imgView[42] = (ImageView) findViewById(R.id.img42);
 
-        extraImgView[1] = (ImageView) findViewById(R.id.img43);
-        extraImgView[2] = (ImageView) findViewById(R.id.img44);
-        extraImgView[3] = (ImageView) findViewById(R.id.img45);
 
 
         Calendar calendar = Calendar.getInstance();
@@ -257,7 +249,12 @@ public class Calender extends AppCompatActivity {
         setDate(totalDaysInMonth, gap);
         setImage(totalDaysInMonth, gap, date);
 
-
+        mDataSource = new SadhnaDataSource(Calender.this, DB_NAME);
+        mDataSource.open();
+        Cursor c = mDataSource.getDataForLastMonth();
+        if (c.getCount() > 27 && date <= 3){
+            btnLastMonth.setVisibility(View.VISIBLE);
+        }
         lotRel[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1224,6 +1221,10 @@ public class Calender extends AppCompatActivity {
 
     public void nav_back(View view) {
         onBackPressed();
+    }
+
+    public void openLastMonth(View view) {
+        startActivity(new Intent(Calender.this,LastMonth.class));
     }
 
 //    public void fabExcuse(View view) {

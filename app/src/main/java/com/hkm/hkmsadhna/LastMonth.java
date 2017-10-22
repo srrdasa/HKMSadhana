@@ -139,9 +139,7 @@ public class LastMonth extends AppCompatActivity {
         dateCal[41] = (TextView) findViewById(R.id.d41);
         dateCal[42] = (TextView) findViewById(R.id.d42);
 
-        extraDateCal[1] = (TextView) findViewById(R.id.d43);
-        extraDateCal[2] = (TextView) findViewById(R.id.d44);
-        extraDateCal[3] = (TextView) findViewById(R.id.d45);
+
 
         lotRel[1] = (RelativeLayout) findViewById(R.id.lot1);
         lotRel[2] = (RelativeLayout) findViewById(R.id.lot2);
@@ -186,9 +184,7 @@ public class LastMonth extends AppCompatActivity {
         lotRel[41] = (RelativeLayout) findViewById(R.id.lot41);
         lotRel[42] = (RelativeLayout) findViewById(R.id.lot42);
 
-        ExtralotRel[1] = (RelativeLayout) findViewById(R.id.lot43);
-        ExtralotRel[2] = (RelativeLayout) findViewById(R.id.lot44);
-        ExtralotRel[3] = (RelativeLayout) findViewById(R.id.lot45);
+
 
 
         imgView[1] = (ImageView) findViewById(R.id.img1);
@@ -234,9 +230,7 @@ public class LastMonth extends AppCompatActivity {
         imgView[41] = (ImageView) findViewById(R.id.img41);
         imgView[42] = (ImageView) findViewById(R.id.img42);
 
-        extraImgView[1] = (ImageView) findViewById(R.id.img43);
-        extraImgView[2] = (ImageView) findViewById(R.id.img44);
-        extraImgView[3] = (ImageView) findViewById(R.id.img45);
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -1266,12 +1260,16 @@ public class LastMonth extends AppCompatActivity {
         totleJP = 0;
         totalDA = 0;
         totleBG = 0;
+        int iii = 0;
         mDataSource = new SadhnaDataSource(LastMonth.this, DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
         Cursor cursor = mDataSource.getDataForLastMonth();
+        Log.v("ttlength",cursor+"");
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
+            Log.v("KLJJKL",iii+"");
+
             int i = cursor.getInt(0);
             int j = cursor.getInt(3);
             int k = cursor.getInt(4);
@@ -1296,28 +1294,27 @@ public class LastMonth extends AppCompatActivity {
             }
 
             Log.v("PrintOnly : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
-            cursor.moveToNext();
             if (ii == date) {
                 break;
             }
             ii++;
+            iii++;
+            cursor.moveToNext();
         }
-        Calendar calendar = Calendar.getInstance();
-        date = calendar.get(Calendar.DATE);
         Log.v("TblReportt:", totalMA + "");
 
-        totleBG = totleBG / date;
-        totleJP = totleJP / date;
-        totalMA = totalMA / date;
-        totalDA = totalDA / date;
+        totleBG = totleBG / totalDaysInLastMonth;
+        totleJP = totleJP / totalDaysInLastMonth;
+        totalMA = totalMA / totalDaysInLastMonth;
+        totalDA = totalDA / totalDaysInLastMonth;
         int totle = (totleBG + totalMA + totalDA + totleJP) / 4;
 
-        Log.v("TblReport:", reportTableId + "");
-        Log.v("TblReport:", totalMA + "");
-        Log.v("TblReport:", totalDA + "");
-        Log.v("TblReport:", totleBG + "");
-        Log.v("TblReport:", totleJP + "");
-        Log.v("TblReport:", totle + "");
+        Log.v("TblReport: ID", reportTableId + "");
+        Log.v("TblReport: MA", totalMA + "");
+        Log.v("TblReport: DA", totalDA + "");
+        Log.v("TblReport: BG", totleBG + "");
+        Log.v("TblReport: JP", totleJP + "");
+        Log.v("TblReport: Tot", totle + "");
 reportTableId = generateIdForTableReport();
         updateReportTable(reportTableId, totalMA, totalDA, totleBG, totleJP, totle);
 

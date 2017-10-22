@@ -1013,7 +1013,7 @@ if (checkLastMonthDataIsThereOrNot()){
         mDataSource = new SadhnaDataSource(MainActivity.this, DB_NAME);
         mDataSource.open();
         Log.v("MarksQuery : ", " | \t" + "Date" + " | \t" + "MA" + " | \t" + "DA" + " | \t" + "BG" + " | \t" + "JP" + " | \t" + "ISC" + " | ");
-        Cursor cursor = mDataSource.getDataForCurruntMonth();
+        Cursor cursor = mDataSource.getDataForCurruntMonth(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int i = cursor.getInt(0);

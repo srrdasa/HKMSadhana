@@ -758,7 +758,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_gallery) {
 
-            startActivity(new Intent(MainActivity.this, LastMonth.class));
+            startActivity(new Intent(MainActivity.this, Calender.class));
 
         } else if (id == R.id.nav_slideshow) {
             Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);

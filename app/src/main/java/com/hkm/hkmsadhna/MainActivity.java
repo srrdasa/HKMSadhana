@@ -1516,7 +1516,7 @@ if (checkLastMonthDataIsThereOrNot()){
         waitForOneSec(punch_da);
         removeCard(da_Card);
         waitForOneSec(da_Card);
-        up_DA(3, date,month,year);//TODO : calculate point based on time for all three cards
+        up_DA(100, date,month,year);//TODO : calculate point based on time for all three cards
     }
 
     public void punch_ma_onclick(View view) {
@@ -1532,7 +1532,7 @@ if (checkLastMonthDataIsThereOrNot()){
         waitForOneSec(punch_sb);
         removeCard(sb_Card);
         waitForOneSec(sb_Card);
-        up_SB(3, date,month,year);//TODO : calculate point based on time for all three cards
+        up_SB(100, date,month,year);//TODO : calculate point based on time for all three cards
     }
 
     public void table(View view) {

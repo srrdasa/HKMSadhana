@@ -49,7 +49,7 @@ public class LastMonth extends AppCompatActivity {
 
     TextView mdate;
     CardView cardView;
-    String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SUP", "OCT", "NOV", "DEC"};
+    String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
 
 
     @Override
@@ -1292,11 +1292,11 @@ public class LastMonth extends AppCompatActivity {
                 up_IS(1,date);
                 Log.v("hamkk", "hmkk");
             }
+            else {
+                up_IS(-1,i);
+            }
 
             Log.v("PrintOnly : ", " | \t" + i + " | \t" + j + " | \t" + k + " | \t" + l + " | \t" + m + " | \t" + n + " | ");
-            if (ii == date) {
-                break;
-            }
             ii++;
             iii++;
             cursor.moveToNext();

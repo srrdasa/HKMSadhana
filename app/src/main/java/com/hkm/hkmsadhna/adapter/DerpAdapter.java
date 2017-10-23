@@ -117,7 +117,7 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder> {
         }else if (a == 9){
             s1 = "OS";
         }else if (a == 10){
-            s1 = "Othors";
+            s1 = "Others";
         }
         return s1;
     }

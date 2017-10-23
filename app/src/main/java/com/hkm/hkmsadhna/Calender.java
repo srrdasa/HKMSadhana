@@ -50,7 +50,7 @@ Button btnLastMonth;
 
     TextView mdate;
     CardView cardView;
-    String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SUP", "OCT", "NOV", "DEC"};
+    String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
 
 
     @Override

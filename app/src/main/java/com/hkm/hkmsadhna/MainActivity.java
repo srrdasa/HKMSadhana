@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setMessage("Please wait");
-        String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SUP", "OCT", "NOV", "DEC"};
+        String[] MonArray = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 //        checkForAutomaticDate();
 
 
-//        UploadDatatoFirebase();
+        UploadDatatoFirebase();
 
 
         punch_da = (ImageView) findViewById(R.id.punch_da);
